@@ -9,12 +9,12 @@
     $error = "";
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $username = $_POST['username'];
-        $email = $_POST['correo'];
-        $password = hash('sha256', $_POST['password']);
-        $passwordcheck = hash('sha256', $_POST['passwordcheck']);
+        $nombre = trim($_POST['nombre']);;
+        $apellidos = trim($_POST['apellidos']);
+        $username = trim($_POST['username']);
+        $email = trim($_POST['correo']);
+        $password = hash('sha256', trim($_POST['password']));
+        $passwordcheck = hash('sha256', trim($_POST['passwordcheck']));
 
         if (empty($nombre) || empty($apellidos) || empty($username) ||empty($email) || empty($password) || empty($passwordcheck)) {
             $error = "Tienes que completar todos los campos.";
