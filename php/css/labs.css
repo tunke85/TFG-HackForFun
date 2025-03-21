@@ -1,0 +1,180 @@
+body {
+    color: #7687A1;
+    width: 100%;
+    height: 1000px;
+    margin: 0;
+    background: linear-gradient(to bottom, #182232, #121C2B);
+}
+
+header {
+    position: sticky;
+    top: 0%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    width: 100%;
+    background-color: #121C2B;
+}
+
+#inicio {
+    width: fit-content;
+    padding-left: 1%;
+    width: 25%;
+    display: flex;
+    float: left;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#inicio img {
+    width: 8%;
+    height: auto;
+}
+
+#inicio h3 {
+    margin: 0.5% 0% 0% 1% ;
+}
+
+#panel {
+    margin-top: 0.5%;
+    position: absolute;
+    right: 1%;
+}
+
+#logout {
+    margin-left: 10px;
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: large;
+}
+
+#logout:hover {
+    border: 2px solid #BBFF34;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #BBFF34;
+    color: #000000;
+    text-decoration: none;
+}
+
+h4 {
+    color: #FFFFFF;
+}
+
+.top .boton {
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: large;
+    float: inline-start;
+    margin-top: 100px;
+
+}
+
+.bot .boton {
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: large;
+    float: inline-start;
+    margin-top: 100px;
+}
+
+.boton:hover {
+    border: 2px solid #BBFF34;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #BBFF34;
+    color: #000000;
+    text-decoration: none;
+}
+
+#easy {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 80px;
+    display: flex;
+}
+
+#rest {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 80px;
+    display: flex;
+}
+
+.top {
+    background-color: #182232;
+    width: 30%;
+    padding: 0 0 30px 20px;
+    margin-right: 20px;
+}
+
+.bot {
+    background-color: #182232;
+    width: 30%;
+    padding: 0 0 30px 20px;
+    margin-right: 20px;
+}
+
+.easy {
+    color: rgb(0, 95, 0);
+}
+
+.medium {
+    color: rgb(153, 153, 0);
+}
+
+.hard {
+    color: rgb(170, 0, 0);
+}
+
+footer {
+    position: absolute;
+    background-color: #182232;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    top: 133%;
+    height: 500px;
+    width: 100%;
+}
+
+footer div {
+    flex: 1;
+    padding: 10px;
+}
+
+#logo {
+    width: fit-content;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10%;
+    display: flex;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#logo img {
+    width: 8%;
+    height: auto;
+}
+
+#logo h3 {
+    margin: 1% 0% 0% 2% ;
+}

@@ -26,15 +26,72 @@
         <title>Laboratorio | <?php echo "$user"; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/panel.css">
+        <link rel="stylesheet" href="css/labs.css">
     </head>
     <body>
         <header>
-            <div style="text-align: right;">
+            <div id="inicio">
+                <img src="imagenes/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div>
+            <div id="panel" style="text-align: right;">
                 <span>Bienvenido, <?php echo "$user"; ?></span>
                 <a id="logout" href="logout.php">Cerrar sesión</a>
             </div>
         </header>
-        
+        <div id="easy">
+            <div class="top">
+                <h4>Behind The Web</h4>
+                <h5 class="easy">Easy</h5>
+                <p></p>
+                <a class="boton" href="machines/behind-the-web.php">Hackeame</a>
+            </div>
+            <div class="top">
+                <h4>Users Leak</h4>
+                <h5 class="easy">Easy</h5>
+                <p></p>
+                <a class="boton" href="machines/users-leak.php">Hackeame</a>
+            </div>
+            <div class="top">
+                <h4>Control</h4>
+                <h5 class="easy">Easy</h5>
+                <p></p>
+                <a class="boton" href="machines/control.php">Hackeame</a>
+            </div>
+        </div>
+        <div id="rest">
+            <div class="bot">
+                <h4>Villain</h4>
+                <h5 class="medium">Medium</h5>
+                <p></p>
+                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+            </div>
+            <div class="bot">
+                <h4>Guardian Angel</h4>
+                <h5 class="medium">Medium</h5>
+                <p></p>
+                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+            </div>
+            <div class="bot">
+                <h4>Kerberos</h4>
+                <h5 class="hard">Hard</h5>
+                <p></p>
+                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+            </div>
+        </div>
+        <footer>
+            <div>
+                <div id="logo">
+                    <img src="imagenes/logo.jpeg"/>
+                    <h3>HackForFun</h3>
+                </div>
+            </div>
+            <div>
+                <h3>Aprendizaje</h3>
+            </div>
+            <div>
+                <p></p>
+            </div>
+        </footer>
     </body>
 </html>
