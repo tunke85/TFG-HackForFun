@@ -2,7 +2,42 @@ body {
     color: #7687A1;
     width: 100%;
     margin: 0;
-    background: linear-gradient(to bottom, #182232, #121C2B);
+    background-color: #121C2B;
+}
+
+header {
+    position: sticky;
+    top: 0%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    width: 100%;
+    background-color: #121C2B;
+}
+
+#inicio {
+    width: fit-content;
+    padding-left: 1%;
+    width: 25%;
+    display: flex;
+    float: left;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#inicio img {
+    width: 8%;
+    height: auto;
+}
+
+#inicio h3 {
+    margin: 0.5% 0% 0% 1% ;
+}
+
+#panel {
+    margin-top: 0.5%;
+    position: absolute;
+    right: 1%;
 }
 
 h2, b {
@@ -75,7 +110,7 @@ header {
     color: #000000;
     text-decoration: none;
     font-size: large;
-    position: fixed;
+    position: relative;
     top: 70%;
 }
 
@@ -87,4 +122,39 @@ header {
     background-color: #BBFF34;
     color: #000000;
     text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    background-color: #182232;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    top: 133%;
+    height: 500px;
+    width: 100%;
+}
+
+footer div {
+    flex: 1;
+    padding: 10px;
+}
+
+#logo {
+    width: fit-content;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10%;
+    display: flex;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#logo img {
+    width: 8%;
+    height: auto;
+}
+
+#logo h3 {
+    margin: 1% 0% 0% 2% ;
 }

@@ -30,7 +30,7 @@
     </head>
     <body>
         <header>
-            <div id="inicio">
+            <div id="inicio" onclick="window.location.href='logout.php';">
                 <img src="imagenes/logo.jpeg"/>
                 <h3>HackForFun</h3>
             </div>
@@ -81,7 +81,7 @@
         </div>
         <footer>
             <div>
-                <div id="logo">
+                <div id="logo" onclick="window.location.href='../index.html';">
                     <img src="imagenes/logo.jpeg"/>
                     <h3>HackForFun</h3>
                 </div>

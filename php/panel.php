@@ -29,7 +29,11 @@
     </head>
     <body>
         <header>
-            <div style="text-align: right;">
+            <div id="inicio" onclick="window.location.href='logout.php';">
+                <img src="imagenes/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div>
+            <div id="panel" style="text-align: right;">
                 <span>Bienvenido, <?php echo "$user"; ?></span>
                 <a id="logout" href="logout.php">Cerrar sesión</a>
             </div>
@@ -56,5 +60,19 @@
                 <a href="labs.php" class="boton">Empieza a aprender</a>
             </div>
         </div>
+        <footer>
+            <div>
+                <div id="logo" onclick="window.location.href='../index.html';">
+                    <img src="imagenes/logo.jpeg"/>
+                    <h3>HackForFun</h3>
+                </div>
+            </div>
+            <div>
+                <h3>Aprendizaje</h3>
+            </div>
+            <div>
+                <p></p>
+            </div>
+        </footer>
     </body>
 </html>

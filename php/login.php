@@ -36,20 +36,41 @@
     <title>HackForFun | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <?php if (!empty($error)): ?>
-        <div style="color: red;"><?php echo $error; ?></div> 
-    <?php endif; ?> 
-    <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
-    <br>
+    <header>
+        <div id="inicio" onclick="window.location.href='../index.html';">
+            <img src="imagenes/logo.jpeg"/>
+            <h3>HackForFun</h3>
+        </div>
+    </header>
     <form action="" method="post">
+        <?php if (!empty($error)): ?>
+            <div style="color: red;"><?php echo $error; ?></div> 
+        <?php endif; ?> 
+        <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
+        <br>
         Email o nombre de usuario: <br>
         <input type="text" name="correo" id="correo" value="<?php echo htmlspecialchars($email ?? ''); ?>"><br><br>
         Contraseña: <br>
         <input type="password" name="password" id="password"><br><br>
-        <input type="submit" value="login"> 
+        <input class="boton" type="submit" value="Iniciar sesión">
+        <input class="boton" type="button" onclick="window.location.href='register.php';" value="Registrarse">
     </form>
+    <footer>
+        <div>
+            <div id="logo">
+                <img src="imagenes/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div>
+        </div>
+        <div>
+            <h3>Aprendizaje</h3>
+        </div>
+        <div>
+            <p></p>
+        </div>
+    </footer>
 </body>
 </html>

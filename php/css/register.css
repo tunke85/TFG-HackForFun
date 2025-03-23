@@ -1,0 +1,104 @@
+body {
+    color: #7687A1;
+    width: 100%;
+    margin: 0;
+    background-color: #121C2B;
+}
+
+header {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    height: 50px;
+    width: 100%;
+    background-color: #182232;
+}
+
+#inicio {
+    width: fit-content;
+    padding-left: 4%;
+    width: 25%;
+    display: flex;
+    float: left;
+    background-color: #182232;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#inicio img {
+    width: 8%;
+    height: auto;
+}
+
+#inicio h3 {
+    margin: 0.5% 0% 0% 1% ;
+}
+
+form {
+    width: 25%;
+    padding: 1% 2% 1% 2%;
+    margin-left: 35%;
+    margin-top: 2.5%;
+    border: 1px solid #FFFFFF;
+    border-radius: 15px;
+    background-color: #182232;
+}
+
+form input {
+    width: 65%;
+}
+
+.boton {
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: large;
+}
+
+.boton:hover {
+    border: 2px solid #BBFF34;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #BBFF34;
+    color: #000000;
+    text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    background-color: #182232;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    top: 78%;
+    height: 400px;
+    width: 100%;
+}
+
+footer div {
+    flex: 1;
+    padding: 10px;
+}
+
+#logo {
+    width: fit-content;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10%;
+    display: flex;
+    color: #FFFFFF;
+    font-size: x-large;
+}
+
+#logo img {
+    width: 8%;
+    height: auto;
+}
+
+#logo h3 {
+    margin: 1% 0% 0% 2% ;
+}

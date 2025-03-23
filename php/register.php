@@ -56,15 +56,23 @@
     <title>HackForFun | Sign In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-    <?php if (!empty($error)): ?>
-        <div style="color: red;"><?php echo $error; ?></div> 
-    <?php endif; ?> 
-    <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
-    <br>
+    <header>
+        <div id="inicio" onclick="window.location.href='../index.html';">
+            <img src="imagenes/logo.jpeg"/>
+            <h3>HackForFun</h3>
+        </div>
+    </header>
     <form action="" method="post">
+        <h3 style="text-align: center; color: #FFFFFF;">Registro</h3>
+        <hr>
+        <?php if (!empty($error)): ?>
+            <div style="color: red;"><?php echo $error; ?></div> 
+        <?php endif; ?> 
+        <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
+        <br>
         Nombre: <br>
         <input type="text" name="nombre" id="nombre"><br><br>
         Apellidos: <br>
@@ -77,7 +85,21 @@
         <input type="password" name="password" id="password"><br><br>
         Repetir Contraseña: <br>
         <input type="password" name="passwordcheck" id="passwordcheck"><br><br>
-        <input type="submit" value="Sign In"> 
+        <input class="boton" type="submit" value="Registrarse"> 
     </form>
+    <footer>
+        <div>
+            <div id="logo">
+                <img src="imagenes/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div>
+        </div>
+        <div>
+            <h3>Aprendizaje</h3>
+        </div>
+        <div>
+            <p></p>
+        </div>
+    </footer>
 </body>
 </html>
