@@ -64,19 +64,19 @@
                 <h4>Villain</h4>
                 <h5 class="medium">Medium</h5>
                 <p></p>
-                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+                <a class="boton" href="machines/cooming-soon.php">Hackeame</a>
             </div>
             <div class="bot">
                 <h4>Guardian Angel</h4>
                 <h5 class="medium">Medium</h5>
                 <p></p>
-                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+                <a class="boton" href="machines/cooming-soon.php">Hackeame</a>
             </div>
             <div class="bot">
                 <h4>Kerberos</h4>
                 <h5 class="hard">Hard</h5>
                 <p></p>
-                <a class="boton" href="machines/coming-soon.php">Hackeame</a>
+                <a class="boton" href="machines/cooming-soon.php">Hackeame</a>
             </div>
         </div>
         <footer>

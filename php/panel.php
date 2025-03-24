@@ -49,7 +49,7 @@
                     Empieza o mejora tu formación en tácticas de Red Team y Blue Team.<br><br>
                     En HackForFun Academy, podrás aprender a través de nuestros learning paht y conseguir certificados profesionales.
                 </p>
-                <a href="academy.php" class="boton">Empieza a aprender</a>
+                <a target="_blank" href="academy.php" class="boton">Empieza a aprender</a>
             </div>
             <div id="labbox">
                 <h2>HackForFun Labs</h2>
@@ -57,7 +57,7 @@
                     Mejora tus técnicas de intrusión y protección en nuestrás máquinas de Capture The Flag.<br><br>
                     En HackForFun Labs, podrás mejorar tus técnicas de "pentesting" haciendo uso de writeups y mejorar las técnicas defensivas con nuestro modelo inovador de aprendizaje.
                 </p>
-                <a href="labs.php" class="boton">Empieza a aprender</a>
+                <a target="_blank" href="labs.php" class="boton">Empieza a aprender</a>
             </div>
         </div>
         <footer>
