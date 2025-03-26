@@ -26,12 +26,12 @@
         <title>Cooming Soon</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/cooming-soon.css">
+        <link rel="stylesheet" href="../../css/cooming-soon.css">
     </head>
     <body>
         <header>
             <div id="inicio" onclick="window.location.href='../logout.php';">
-                <img src="../imagenes/logo.jpeg"/>
+                <img src="../../icono/logo.jpeg"/>
                 <h3>HackForFun</h3>
             </div>
             <div id="panel" style="text-align: right;">
@@ -51,7 +51,7 @@
         <footer>
             <div>
                 <div id="logo" onclick="window.location.href='../logout.php';">
-                    <img src="../imagenes/logo.jpeg"/>
+                    <img src="../../icono/logo.jpeg"/>
                     <h3>HackForFun</h3>
                 </div>
             </div>
