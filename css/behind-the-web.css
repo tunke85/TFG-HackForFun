@@ -151,6 +151,28 @@ h4 {
     to { transform: rotate(360deg); }
 }
 
+.boton {
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: large;
+}
+
+.boton:hover {
+    border: 2px solid #BBFF34;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #BBFF34;
+    color: #000000;
+    text-decoration: none;
+}
+
+
 footer {
     position: absolute;
     background-color: #182232;

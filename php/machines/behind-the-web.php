@@ -251,6 +251,11 @@
                 <a href="behind-the-web/ofensive.pdf">Solución Ofensiva</a> | <a href="behind-the-web/defensive.pdf">Solución Defensiva</a>
             </p>
         </div>
+        <div id="vpn">
+            <h3>Descarga de VPN</h3>
+            <p>Descarga la vpn para poder realizar la máquina del laboratorio</p>
+            <a href="../descargar-vpn.php?usuario=. <?php $user?> ." class="boton"></a>
+        </div>
         <footer>
             <div>
                 <div id="logo" onclick="window.location.href='../logout.php';">
