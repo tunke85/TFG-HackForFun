@@ -7,6 +7,9 @@
     require '../conexion.php';
 
     $error = "";
+    $erroruser = "";
+    $errorroot = "";
+    $correcto = '';
 
     session_start();
     if (!isset($_SESSION['id'])) {
@@ -14,11 +17,62 @@
     }
 
     $userSession = explode(' ', $_SESSION['id']);
-    $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email");
+    $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email;");
     $userEmail = $select->fetch_assoc();
     $user = $userEmail['username'];
 
-    $currentMachine = 'gV8ql2YxqL9n91mP';
+    $selectmach = $conexion->execute_query("SELECT name FROM machines WHERE name = 'behind-the-web';");
+    $machineName = $selectmach->fetch_assoc();
+
+    $selectmachid = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'behind-the-web';");
+    $serverId = $selectmachid->fetch_assoc();
+
+    $serverConfig = [
+        'machineName' => $machineName['name'],
+        'serverId' => $serverId['machineid'] // Podrías obtener esto de tu base de datos
+    ];
+
+    echo '<script>window.serverConfig = ' . json_encode($serverConfig) . ';</script>';
+
+    $selectuser = $conexion->execute_query("SELECT userflag FROM machines WHERE name = 'behind-the-web';");
+    $userflag = $selectuser->fetch_assoc();
+
+    $selectroot = $conexion->execute_query("SELECT rootflag FROM machines WHERE name = 'behind-the-web';");
+    $rootflag = $selectroot->fetch_assoc();
+
+    $correctouser = '';
+    $correctoroot = '';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $root = $_POST['root'];
+        $user = $_POST['user'];
+
+        if ( empty($root) || empty($user) ){ # Validando campos vacíos
+            $error = "Los dos campos están vacios.";
+        } elseif (!empty($root)){
+            if ($root == $rootflag) {
+                $correctoroot = "root";
+            } elseif ($root != $rootflag) {
+                $correctoroot = "noroot";
+            }
+        } elseif (!empty($user)){
+            if ($user == $userflag) {
+                $correctouser = "user";
+            } elseif ($user != $userflag) {
+                $correctouser = "nouser";
+            }
+        }else {
+            if ($root == $rootflag) {
+                $correctoroot = "root";
+            } elseif ($root != $rootflag) {
+                $correctoroot = "noroot";
+            } elseif ($user == $userflag) {
+                $correctouser = "user";
+            } elseif ($user != $userflag) {
+                $correctouser = "nouser";
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +82,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/behind-the-web.css">
+        <link rel="icon" href="../../icono/logo.ico" type="image/x-icon">
     </head>
     <body>
         <header>
@@ -71,7 +126,8 @@
                 };
 
                 // Configuración
-                const currentMachine = 'behind-the-web';
+                const currentMachine = window.serverConfig.machineName;
+                const serverId = window.serverConfig.serverId; // Si necesitas enviarlo también
                 const API_BASE_URL = 'http://localhost:3000';
 
                 // Elementos del DOM
@@ -253,8 +309,30 @@
         </div>
         <div id="vpn">
             <h3>Descarga de VPN</h3>
-            <p>Descarga la vpn para poder realizar la máquina del laboratorio</p>
-            <a href="../descargar-vpn.php?usuario=. <?php $user?> ." class="boton"></a>
+            <p>Descarga la vpn para poder realizar la máquina del laboratorio<br><br><br></p>
+            <a href="../descargar-vpn.php?usuario=<?php echo htmlspecialchars($user);?>" class="boton">Descargar</a>
+            <br><br>
+        </div>
+        <div class="docker">
+            <?php if (!empty($error)): ?>
+                <div style="color: red;"><?php echo $error; ?></div> 
+            <?php endif; ?> <br>
+            <form action="" method="post">
+                User flag:<br>
+                <?php if (!empty($erroruser)): ?>
+                    <div style="color: red; padding: 2px 2px 2px 2px;"><?php echo $erroruser; ?></div> 
+                <?php endif; ?> 
+                <input type="text" name="user" id="user" <?php if ($correctouser == 'Correcto') echo  "readonly value='Flag correcta' style='color: green;';";?>>
+                <input type="submit" value="Comprobar" class="boton" <?php if ($correcto == 'Correcto') echo "disabled";?>>
+                <br><br>
+                Root flag:<br>
+                <?php if (!empty($errorroot)): ?>
+                    <div style="color: red; padding: 2px 2px 2px 2px;"><?php echo $errorroot; ?></div> 
+                <?php endif; ?> 
+                <input type="text" name="root" id="root" <?php if ($correctoroot == 'Correcto') echo  "readonly value='Flag correcta' style='color: green;';";?>>
+                <input type="submit" value="Comprobar" class="boton">
+                <br>
+            </form>
         </div>
         <footer>
             <div>

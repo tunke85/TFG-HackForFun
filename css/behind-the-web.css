@@ -67,53 +67,23 @@ h4 {
     color: #FFFFFF;
 }
 
-.top .boton {
-    border: 2px solid #9FEF00;
-    width: fit-content;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #9FEF00;
-    color: #000000;
-    text-decoration: none;
-    font-size: large;
-    float: inline-start;
-    margin-top: 100px;
-
-}
-
-.boton {
-    border: 2px solid #9FEF00;
-    width: fit-content;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #9FEF00;
-    color: #000000;
-    text-decoration: none;
-    font-size: large;
-}
-
-.boton:hover {
-    border: 2px solid #BBFF34;
-    width: fit-content;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #BBFF34;
-    color: #000000;
-    text-decoration: none;
-}
-
 .docker {
     width: 50%;
     padding: 1% 2% 1% 2%;
-    margin-left: 23%;
+    margin-left: 20%;
     margin-top: 3%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
     background-color: #182232;
+    float: left;
 }
 
 .docker h3 {
     color: #FFFFFF;
+}
+
+.docker a {
+    color: #7687A1;    
 }
 
 .btn {
@@ -127,12 +97,12 @@ h4 {
     transition: all 0.3s;
 }
 .btn-primary {
-    background: #007bff;
-    color: white;
+    background: #9FEF00;
+    color: black;
 }
 .btn-warning {
-    background: #ff9800;
-    color: white;
+    background: #ffee00;
+    color: black;
 }
 .btn:disabled {
     background: #cccccc !important;
@@ -172,6 +142,51 @@ h4 {
     text-decoration: none;
 }
 
+#vpn {
+    width: 15%;
+    padding: 1% 2% 1% 2%;
+    margin-left: 5%;
+    margin-top: 3%;
+    border: 1px solid #FFFFFF;
+    border-radius: 15px;
+    background-color: #182232;
+    float: left;
+}
+
+#vpn h3 {
+    color: #FFFFFF;
+}
+
+form {
+    width: 85%;
+}
+
+form input {
+    width: 95%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+form .boton {
+    border: 2px solid #9FEF00;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #9FEF00;
+    color: #000000;
+    text-decoration: none;
+    font-size: small;
+}
+
+form .boton:hover {
+    border: 2px solid #BBFF34;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #BBFF34;
+    color: #000000;
+    text-decoration: none;
+}
 
 footer {
     position: absolute;

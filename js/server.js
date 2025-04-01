@@ -22,11 +22,6 @@ const cloudingApi = axios.create({
   }
 });
 
-// Mapeo de servidores
-const SERVERS = {
-  'behind-the-web': process.env.BEHIND_THE_WEB_SERVER_ID
-};
-
 // Middleware de logs
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
@@ -36,8 +31,8 @@ app.use((req, res, next) => {
 // Endpoint de estado
 app.get('/server-status', async (req, res) => {
   try {
-    const { machine } = req.query;
-    const serverId = SERVERS[machine];
+    const { action, machine, serverId } = req.body;
+    const targetServerId = serverId || SERVERS[machine];
     
     if (!serverId) {
       return res.status(400).json({ 
