@@ -6,10 +6,11 @@
 
     require '../conexion.php';
 
-    $error = "";
-    $erroruser = "";
-    $errorroot = "";
-    $correcto = '';
+    $mensaje = '';
+    $respuestauser = '';
+    $respuestaroot = '';
+    $is_correctuser = false;
+    $is_correctroot = false;
 
     session_start();
     if (!isset($_SESSION['id'])) {
@@ -19,57 +20,72 @@
     $userSession = explode(' ', $_SESSION['id']);
     $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email;");
     $userEmail = $select->fetch_assoc();
-    $user = $userEmail['username'];
+    $user = $userEmail['username'] ?? '';
 
-    $selectmach = $conexion->execute_query("SELECT name FROM machines WHERE name = 'behind-the-web';");
-    $machineName = $selectmach->fetch_assoc();
-
-    $selectmachid = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'behind-the-web';");
-    $serverId = $selectmachid->fetch_assoc();
+    $machineName = $conexion->execute_query("SELECT name FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
+    $serverId = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
 
     $serverConfig = [
         'machineName' => $machineName['name'],
-        'serverId' => $serverId['machineid'] // Podrías obtener esto de tu base de datos
+        'serverId' => $serverId['machineid'] 
     ];
 
     echo '<script>window.serverConfig = ' . json_encode($serverConfig) . ';</script>';
 
-    $selectuser = $conexion->execute_query("SELECT userflag FROM machines WHERE name = 'behind-the-web';");
-    $userflag = $selectuser->fetch_assoc();
+    $stmt1 = $conexion->prepare("SELECT userflag, rootflag FROM labprogress WHERE iduser = (SELECT id FROM users WHERE username = ?)");
+    $stmt1->bind_param("s", $user);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
 
-    $selectroot = $conexion->execute_query("SELECT rootflag FROM machines WHERE name = 'behind-the-web';");
-    $rootflag = $selectroot->fetch_assoc();
+    $stmt2 = $conexion->prepare("SELECT userflag, rootflag FROM machines WHERE name = 'behind-the-web'");
+    $stmt2->execute();
+    $result2 = $stmt2->get_result();
 
-    $correctouser = '';
-    $correctoroot = '';
+    if ($result1->num_rows > 0) {
+        $row1 = $result1->fetch_assoc();
+        $is_correctuser = (bool)($row1['userflag'] ?? false);
+        $is_correctroot = (bool)($row1['rootflag'] ?? false);
+    }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $root = $_POST['root'];
-        $user = $_POST['user'];
-
-        if ( empty($root) || empty($user) ){ # Validando campos vacíos
-            $error = "Los dos campos están vacios.";
-        } elseif (!empty($root)){
-            if ($root == $rootflag) {
-                $correctoroot = "root";
-            } elseif ($root != $rootflag) {
-                $correctoroot = "noroot";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!$is_correctuser || !$is_correctroot)) {
+        $new_respuestauser = trim($_POST['respuestauser'] ?? '');
+        $new_respuestaroot = trim($_POST['respuestaroot'] ?? '');
+        
+        if ($result2->num_rows > 0) {
+            $row2 = $result2->fetch_assoc();
+            $clave_correctauser = $row2['userflag'] ?? '';
+            $clave_correctaroot = $row2['rootflag'] ?? '';
+            
+            $update_needed = false;
+            
+            // Validación respuesta user
+            if (!$is_correctuser && !empty($_POST['respuestauser'])) {
+                $respuestauser = $new_respuestauser;
+                $is_correctuser = ($new_respuestauser === $clave_correctauser);
+                $update_needed = $is_correctuser;
             }
-        } elseif (!empty($user)){
-            if ($user == $userflag) {
-                $correctouser = "user";
-            } elseif ($user != $userflag) {
-                $correctouser = "nouser";
+            
+            // Validación respuesta root
+            if (!$is_correctroot && !empty($_POST['respuestaroot'])) {
+                $respuestaroot = $new_respuestaroot;
+                $is_correctroot = ($new_respuestaroot === $clave_correctaroot);
+                $update_needed = $update_needed || $is_correctroot;
             }
-        }else {
-            if ($root == $rootflag) {
-                $correctoroot = "root";
-            } elseif ($root != $rootflag) {
-                $correctoroot = "noroot";
-            } elseif ($user == $userflag) {
-                $correctouser = "user";
-            } elseif ($user != $userflag) {
-                $correctouser = "nouser";
+            
+            // Actualización en base de datos
+            if ($update_needed) {
+                $update_stmt = $conexion->prepare("UPDATE labprogress SET userflag = ?, rootflag = ? WHERE iduser = (SELECT id FROM users WHERE username = ?)");
+                $update_stmt->bind_param("iis", $is_correctuser, $is_correctroot, $user);
+                
+                if ($update_stmt->execute()) {
+                    if ($is_correctuser && $is_correctroot) {
+                        $mensaje = "<div class='exito'>¡Todas las respuestas son correctas!</div>";
+                    } else {
+                        $mensaje = "<div class='info'>Progreso guardado correctamente.</div>";
+                    }
+                } else {
+                    $mensaje = "<div class='error'>Error al guardar el progreso</div>";
+                }
             }
         }
     }
@@ -122,12 +138,14 @@
                 // Estado global del servidor
                 let serverState = {
                     status: null,
-                    ip: null
+                    ip: null,
+                    isAccessible: false,
+                    isProcessing: false // Nuevo estado para operaciones en curso
                 };
 
-                // Configuración
+                // Configuración desde PHP
                 const currentMachine = window.serverConfig.machineName;
-                const serverId = window.serverConfig.serverId; // Si necesitas enviarlo también
+                const serverId = window.serverConfig.serverId;
                 const API_BASE_URL = 'http://localhost:3000';
 
                 // Elementos del DOM
@@ -140,167 +158,198 @@
 
                 // Inicialización
                 function init() {
-                    // Configurar spinners
                     actionSpinner.style.display = 'none';
                     rebootSpinner.style.display = 'none';
                     
-                    // Asignar eventos
                     mainBtn.addEventListener('click', handleMainAction);
                     rebootBtn.addEventListener('click', handleRebootAction);
                     
-                    // Verificar estado inicial
                     checkServerStatus();
-                    
-                    // Verificar estado periódicamente (cada 30 segundos)
                     setInterval(checkServerStatus, 30000);
                 }
 
-                // Manejador del botón principal
-                async function handleMainAction() {
-                    const action = serverState.status === 'Running' ? 'stop' : 'start';
-                    await handleAction(action);
-                }
+                // Verificar estado del servidor (mejorado)
+                async function checkServerStatus() {
+                    if (serverState.isProcessing) return; // No verificar durante operaciones
+                    
+                    try {
+                        const response = await fetch(
+                            `${API_BASE_URL}/server-status?machine=${currentMachine}&serverId=${serverId}&rand=${Math.random()}`
+                        );
+                        
+                        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+                        
+                        const data = await response.json();
+                        if (!data.success) throw new Error(data.error || 'Error en la respuesta');
 
-                // Manejador del botón de reinicio
-                async function handleRebootAction() {
-                    if (confirm('¿Estás seguro de reiniciar la máquina? Esto puede tomar unos minutos.')) {
-                        await handleAction('reboot');
+                        serverState = {
+                            ...serverState,
+                            status: data.status,
+                            ip: data.ip,
+                            isAccessible: data.isAccessible || false
+                        };
+                        
+                        updateUI();
+                    } catch (error) {
+                        console.error('Error al verificar estado:', error);
+                        if (!serverState.isProcessing) {
+                            statusDiv.innerHTML = '⚠️ Error al conectar con el servicio';
+                            statusDiv.style.color = 'orange';
+                        }
                     }
                 }
 
-                // Función para manejar cualquier acción
-                async function handleAction(action) {
-                    const isReboot = action === 'reboot';
-                    const spinner = isReboot ? rebootSpinner : actionSpinner;
-                    const btn = isReboot ? rebootBtn : mainBtn;
+                // Manejadores de acciones
+                async function handleMainAction() {
+                    const action = serverState.status === 'Running' ? 'stop' : 'start';
+                    await handleAction(action, actionSpinner, actionText);
+                }
+
+                async function handleRebootAction() {
+                    if (confirm('¿Estás seguro de reiniciar la máquina? Esto puede tomar unos minutos.')) {
+                        await handleAction('reboot', rebootSpinner, rebootBtn.querySelector('span'));
+                    }
+                }
+
+                // Función principal para manejar acciones (mejorada)
+                async function handleAction(action, spinner, textElement) {
+                    serverState.isProcessing = true;
+                    const originalText = textElement.textContent;
+                    const btn = spinner === actionSpinner ? mainBtn : rebootBtn;
                     
                     btn.disabled = true;
                     spinner.style.display = 'inline-block';
                     statusDiv.style.color = 'inherit';
-                    statusDiv.innerHTML = `Procesando ${getActionName(action)}...`;
+                    
+                    // Mensajes específicos para cada acción
+                    const actionMessages = {
+                        start: 'Desarchivando máquina...',
+                        stop: 'Archivando máquina...',
+                        reboot: 'Reiniciando máquina...'
+                    };
+                    
+                    statusDiv.innerHTML = actionMessages[action] || 'Procesando...';
                     
                     try {
                         const response = await fetch(`${API_BASE_URL}/server-action`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action, machine: currentMachine })
+                            body: JSON.stringify({ action, machine: currentMachine, serverId })
                         });
                         
-                        if (!response.ok) {
-                            throw new Error(`Error HTTP: ${response.status}`);
-                        }
+                        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
                         
                         const data = await response.json();
-                        
-                        if (!data.success) {
-                            throw new Error(data.error || 'Error en la respuesta del servidor');
-                        }
-                        
-                        // Esperar cambio de estado
+                        if (!data.success) throw new Error(data.error || 'Error en la respuesta');
+
+                        // Esperar confirmación del cambio de estado
                         await waitForStatusChange(action);
                         
                     } catch (error) {
-                        console.error('Error:', error);
+                        console.error(`Error en ${action}:`, error);
                         statusDiv.innerHTML = `❌ Error: ${error.message}`;
                         statusDiv.style.color = 'red';
                     } finally {
+                        serverState.isProcessing = false;
                         btn.disabled = false;
                         spinner.style.display = 'none';
                         await checkServerStatus();
                     }
                 }
 
-                // Obtener nombre descriptivo de la acción
-                function getActionName(action) {
-                    const actions = {
-                        'start': 'inicio',
-                        'stop': 'detención',
-                        'reboot': 'reinicio'
-                    };
-                    return actions[action] || action;
-                }
-
-                // Esperar cambio de estado del servidor
+                // Esperar cambio de estado (mejorado)
                 async function waitForStatusChange(action) {
                     const targetStatus = action === 'start' ? 'Running' : 
-                                    action === 'stop' ? 'Stopped' : 'Running';
+                                    action === 'stop' ? 'Archived' : 'Running';
                     
                     let attempts = 0;
-                    const maxAttempts = 30; // 30 segundos máximo de espera
+                    const maxAttempts = 30; // 30 segundos máximo
                     
                     while (attempts < maxAttempts) {
+                        statusDiv.innerHTML = `${getActionName(action)}... (${attempts}s)`;
                         await new Promise(resolve => setTimeout(resolve, 1000));
-                        await checkServerStatus();
                         
-                        if (serverState.status === targetStatus) {
-                            return;
+                        try {
+                            await checkServerStatus();
+                            if (serverState.status === targetStatus) {
+                                if (action === 'start') {
+                                    // Esperar adicionalmente a que sea accesible
+                                    await waitForAccessibility();
+                                }
+                                return;
+                            }
+                        } catch (error) {
+                            console.error('Error durante espera:', error);
                         }
                         
                         attempts++;
-                        statusDiv.innerHTML = `Procesando... (${attempts}s)`;
                     }
                     
-                    throw new Error('La acción está tardando más de lo esperado');
+                    throw new Error(`La acción está tardando más de lo esperado (${maxAttempts}s)`);
                 }
 
-                // Verificar estado del servidor
-                async function checkServerStatus() {
-                    try {
-                        const response = await fetch(`${API_BASE_URL}/server-status?machine=${currentMachine}`);
-                        
-                        if (!response.ok) {
-                            throw new Error(`Error HTTP: ${response.status}`);
-                        }
-                        
-                        const data = await response.json();
-                        
-                        if (data.success) {
-                            serverState = {
-                                status: data.status,
-                                ip: data.ip
-                            };
-                            updateUI();
-                        } else {
-                            throw new Error(data.error || 'Error en la respuesta del servidor');
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        statusDiv.innerHTML = '⚠️ Error al conectar con el servicio de control';
-                        statusDiv.style.color = 'orange';
-                        actionText.textContent = 'Error';
-                        
-                        // Reintentar después de 5 segundos
-                        setTimeout(checkServerStatus, 5000);
+                // Esperar a que el servidor sea accesible
+                async function waitForAccessibility() {
+                    let attempts = 0;
+                    const maxAttempts = 30;
+                    
+                    while (attempts < maxAttempts && !serverState.isAccessible) {
+                        statusDiv.innerHTML = `Iniciando... (${attempts}s)`;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        await checkServerStatus();
+                        attempts++;
+                    }
+                    
+                    if (!serverState.isAccessible) {
+                        throw new Error('El servidor no respondió después de iniciar');
                     }
                 }
 
-                // Actualizar la interfaz de usuario
+                // Actualizar interfaz (mejorada)
                 function updateUI() {
-                    // Actualizar botón principal
+                    if (serverState.isProcessing) return;
+
+                    // Botón principal
                     if (serverState.status === 'Running') {
                         actionText.textContent = 'Detener Máquina';
                         mainBtn.classList.remove('btn-primary');
                         mainBtn.classList.add('btn-danger');
                         rebootBtn.disabled = false;
-                    } else if (serverState.status === 'Stopped') {
+                        
+                        const accStatus = serverState.isAccessible ? 
+                            '<span style="color:green"> (Accesible)</span>' : 
+                            '<span style="color:orange"> (Iniciando...)</span>';
+                        
+                        statusDiv.innerHTML = serverState.ip ? 
+                            `Estado: <strong>En ejecución</strong>${accStatus} - IP: ${serverState.ip}` : 
+                            `Estado: <strong>En ejecución</strong>${accStatus}`;
+                            
+                    } else if (serverState.status === 'Archived') {
                         actionText.textContent = 'Iniciar Máquina';
                         mainBtn.classList.remove('btn-danger');
                         mainBtn.classList.add('btn-primary');
                         rebootBtn.disabled = true;
+                        statusDiv.innerHTML = 'Estado: <strong>Archivada</strong>';
+                    } else {
+                        actionText.textContent = 'Iniciar Máquina';
+                        mainBtn.classList.remove('btn-danger');
+                        mainBtn.classList.add('btn-primary');
+                        rebootBtn.disabled = true;
+                        statusDiv.innerHTML = 'Estado: <strong>Detenida</strong>';
                     }
-                    
-                    // Actualizar estado
-                    statusDiv.innerHTML = serverState.ip 
-                        ? `Estado: <strong>${serverState.status}</strong> (IP: ${serverState.ip})`
-                        : `Estado: <strong>${serverState.status || 'Desconocido'}</strong>`;
-                    
-                    statusDiv.style.color = serverState.status === 'Running' ? 'green' : 
-                                        serverState.status === 'Stopped' ? 'red' : 'inherit';
-                    
-                    mainBtn.disabled = false;
                 }
 
-                // Inicializar cuando el DOM esté listo
+                // Helper para nombres de acciones
+                function getActionName(action) {
+                    const actions = {
+                        'start': 'Iniciando',
+                        'stop': 'Apagando',
+                        'reboot': 'Reiniciando'
+                    };
+                    return actions[action] || action;
+                }
+
+                // Iniciar cuando el DOM esté listo
                 document.addEventListener('DOMContentLoaded', init);
             </script>
             <p>
@@ -314,25 +363,57 @@
             <br><br>
         </div>
         <div class="docker">
-            <?php if (!empty($error)): ?>
-                <div style="color: red;"><?php echo $error; ?></div> 
-            <?php endif; ?> <br>
-            <form action="" method="post">
-                User flag:<br>
-                <?php if (!empty($erroruser)): ?>
-                    <div style="color: red; padding: 2px 2px 2px 2px;"><?php echo $erroruser; ?></div> 
-                <?php endif; ?> 
-                <input type="text" name="user" id="user" <?php if ($correctouser == 'Correcto') echo  "readonly value='Flag correcta' style='color: green;';";?>>
-                <input type="submit" value="Comprobar" class="boton" <?php if ($correcto == 'Correcto') echo "disabled";?>>
-                <br><br>
-                Root flag:<br>
-                <?php if (!empty($errorroot)): ?>
-                    <div style="color: red; padding: 2px 2px 2px 2px;"><?php echo $errorroot; ?></div> 
-                <?php endif; ?> 
-                <input type="text" name="root" id="root" <?php if ($correctoroot == 'Correcto') echo  "readonly value='Flag correcta' style='color: green;';";?>>
-                <input type="submit" value="Comprobar" class="boton">
+            <?php echo $mensaje; ?>
+            <form method="post" id="formRespuestas">
+                <div class="campo <?php echo $is_correctuser ? 'campo-bloqueado' : 'campo-activo'; ?>">
+                    <label>User Flag:</label>
+                    <input type="text" name="respuestauser" 
+                        value="<?php echo htmlspecialchars($respuestauser); ?>" 
+                        <?php echo $is_correctuser ? 'readonly' : ''; ?>>
+                    <?php if ($is_correctuser): ?>
+                        <span class="exito">✓ User flag correcta</span>
+                    <?php elseif (!empty($respuestauser)): ?>
+                        <span class="error">✗ User flag incorrecta</span>
+                    <?php endif; ?>
+                </div>
+                <div class="campo <?php echo $is_correctroot ? 'campo-bloqueado' : 'campo-activo'; ?>">
+                    <label>Root Flag::</label>
+                    <input type="text" name="respuestaroot" 
+                        value="<?php echo htmlspecialchars($respuestaroot); ?>" 
+                        <?php echo $is_correctroot ? 'readonly' : ''; ?>>
+                    <?php if ($is_correctroot): ?>
+                        <span class="exito">✓ Root flag correcta</span>
+                    <?php elseif (!empty($respuestaroot)): ?>
+                        <span class="error">✗ Root flag incorrecta</span>
+                    <?php endif; ?>
+                </div>
                 <br>
+                <button class="boton" type="submit" <?php echo ($is_correctuser && $is_correctroot) ? 'disabled' : ''; ?>>
+                    <?php echo ($is_correctuser || $is_correctroot) ? 'Enviar' : 'Enviar'; ?>
+                </button>
             </form>
+            <script>
+                // Validación básica del formulario
+                document.getElementById('formRespuestas').addEventListener('submit', function(e) {
+                    const respuesta1 = this.elements.respuestauser.value.trim();
+                    const respuesta2 = this.elements.respuestaroot.value.trim();
+                    const is_correct1 = <?php echo $is_correctuser ? 'true' : 'false'; ?>;
+                    const is_correct2 = <?php echo $is_correctroot ? 'true' : 'false'; ?>;
+
+                    // Si ambos campos están vacíos y no hay respuestas previas
+                    if (!respuesta1 && !respuesta2 && !is_correct1 && !is_correct2) {
+                        e.preventDefault();
+                        alert('Debes ingresar al menos una respuesta');
+                        return;
+                    }
+
+                    // Si intenta enviar un campo vacío que no estaba completado antes
+                    if ((!respuesta1 && !is_correct1) || (!respuesta2 && !is_correct2)) {
+                        e.preventDefault();
+                        alert('Completa todos los campos requeridos');
+                    }
+                });
+            </script>
         </div>
         <footer>
             <div>
