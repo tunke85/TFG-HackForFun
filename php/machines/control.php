@@ -22,8 +22,8 @@
     $userEmail = $select->fetch_assoc();
     $user = $userEmail['username'] ?? '';
 
-    $machineName = $conexion->execute_query("SELECT name FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
-    $serverId = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
+    $machineName = $conexion->execute_query("SELECT name FROM machines WHERE name = 'control'")->fetch_assoc();
+    $serverId = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'control'")->fetch_assoc();
 
     $serverConfig = [
         'machineName' => $machineName['name'],
@@ -124,10 +124,10 @@
             </div>
         </header>
         <div class="docker">
-            <h3>Behind The Web</h3>
+            <h3>Control</h3>
             <p>
-                Esta máquina está creada con el objetivo de mejorar y/o aprender de técnicas de hacking web.
-                Certificados: <b>eJPT</b> y <b>eWPT</b><br><br>
+                Esta máquina está creada con el objetivo de mejorar y/o aprender de técnicas de hacking de sistemas.
+                Certificados: <b>eJPT</b> y <b>OSCP</b><br><br>
             </p>
             <div id="server-controls">
                 <!-- Botón Principal -->
@@ -365,7 +365,7 @@
                 document.addEventListener('DOMContentLoaded', init);
             </script>
             <p>
-                <a href="behind-the-web/ofensive.pdf">Solución Ofensiva</a> | <a href="behind-the-web/defensive.pdf">Solución Defensiva</a>
+                <a href="control/ofensive.pdf">Solución Ofensiva</a> | <a href="control/defensive.pdf">Solución Defensiva</a>
             </p>
         </div>
         <div id="vpn">

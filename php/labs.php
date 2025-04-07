@@ -51,7 +51,7 @@
                 <h4>Users Leak</h4>
                 <h5 class="easy">Easy</h5>
                 <p></p>
-                <a class="boton" href="machines/users-leak.php">Hackeame</a>
+                <a class="boton" href="machines/users-leaks.php">Hackeame</a>
             </div>
             <div class="top">
                 <h4>Control</h4>
