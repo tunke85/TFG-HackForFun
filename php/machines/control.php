@@ -330,10 +330,10 @@
                         
                         const accStatus = serverState.isAccessible ? 
                             '<span style="color:green"> (Accesible)</span>' : 
-                            '<span style="color:orange"> (Iniciando...)</span>';
+                            '<span style="color:green"> (Iniciando...)</span>';
                         
                         statusDiv.innerHTML = serverState.ip ? 
-                            `Estado: <strong>En ejecución</strong>${accStatus} - IP: ${serverState.ip}` : 
+                            `<span style="color:green"> Estado: <strong>En ejecución</strong>${accStatus} - IP: <strong>${serverState.ip}</strong></span>` : 
                             `Estado: <strong>En ejecución</strong>${accStatus}`;
                             
                     } else if (serverState.status === 'Archived') {
@@ -417,12 +417,6 @@
                         e.preventDefault();
                         alert('Debes ingresar al menos una respuesta');
                         return;
-                    }
-
-                    // Si intenta enviar un campo vacío que no estaba completado antes
-                    if ((!respuesta1 && !is_correct1) || (!respuesta2 && !is_correct2)) {
-                        e.preventDefault();
-                        alert('Completa todos los campos requeridos');
                     }
                 });
             </script>

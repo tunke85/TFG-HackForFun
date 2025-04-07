@@ -123,6 +123,22 @@
                 <a id="logout" href="../logout.php">Cerrar sesión</a>
             </div>
         </header>
+        <div id="menu">
+            <div id="inicio" onclick="window.location.href='../logout.php';">
+                <img src="../../icono/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div><br><br>
+            <ul>
+                <li><a href="../panel.php">Panel de control</a></li><br>
+                <li><a href="../labs.php">Máquinas</a><br><br>
+                    <ul>
+                        <li><a href="behind-the-web.php">Behind The Web</a></li><br>
+                        <li><a href="users-leaks.php">Users Leaks</a></li><br>
+                        <li><a href="control.php">Control</a></li><br>
+                    </ul>
+                </li>           
+            </ul>
+        </div>
         <div class="docker">
             <h3>Users leaks</h3>
             <p>
@@ -330,10 +346,10 @@
                         
                         const accStatus = serverState.isAccessible ? 
                             '<span style="color:green"> (Accesible)</span>' : 
-                            '<span style="color:orange"> (Iniciando...)</span>';
+                            '<span style="color:green"> (Iniciando...)</span>';
                         
                         statusDiv.innerHTML = serverState.ip ? 
-                            `Estado: <strong>En ejecución</strong>${accStatus} - IP: ${serverState.ip}` : 
+                            `<span style="color:green"> Estado: <strong>En ejecución</strong>${accStatus} - IP: <strong>${serverState.ip}</strong></span>` : 
                             `Estado: <strong>En ejecución</strong>${accStatus}`;
                             
                     } else if (serverState.status === 'Archived') {
@@ -389,7 +405,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="campo <?php echo $is_correctroot ? 'campo-bloqueado' : 'campo-activo'; ?>">
-                    <label>Root Flag::</label>
+                    <label>Root Flag:</label>
                     <input type="text" name="respuestaroot" 
                         value="<?php echo htmlspecialchars($respuestaroot); ?>" 
                         <?php echo $is_correctroot ? 'readonly' : ''; ?>>
@@ -417,12 +433,6 @@
                         e.preventDefault();
                         alert('Debes ingresar al menos una respuesta');
                         return;
-                    }
-
-                    // Si intenta enviar un campo vacío que no estaba completado antes
-                    if ((!respuesta1 && !is_correct1) || (!respuesta2 && !is_correct2)) {
-                        e.preventDefault();
-                        alert('Completa todos los campos requeridos');
                     }
                 });
             </script>
