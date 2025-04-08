@@ -14,7 +14,7 @@
 
     session_start();
     if (!isset($_SESSION['id'])) {
-        header("Location: http://localhost/");
+        header("Location: https://hackforfun.io/");
     }
 
     $userSession = explode(' ', $_SESSION['id']);
@@ -174,7 +174,7 @@
                 // Configuración desde PHP
                 const currentMachine = window.serverConfig.machineName;
                 const serverId = window.serverConfig.serverId;
-                const API_BASE_URL = 'http://localhost:3000';
+                const API_BASE_URL = 'https://hackforfun.io:3000';
 
                 // Elementos del DOM
                 const mainBtn = document.getElementById('mainActionBtn');

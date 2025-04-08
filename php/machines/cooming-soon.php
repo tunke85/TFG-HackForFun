@@ -10,7 +10,7 @@
 
     session_start();
     if (!isset($_SESSION['id'])) {
-        header("Location: http://localhost/");
+        header("Location: https://hackforfun.io/");
     }
 
     $userSession = explode(' ', $_SESSION['id']);

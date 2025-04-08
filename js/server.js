@@ -128,7 +128,7 @@ app.post('/server-action', async (req, res) => {
 
 // Iniciar servidor
 const server = app.listen(PORT, () => {
-  console.log(`Servidor de control escuchando en http://localhost:${PORT}`);
+  console.log(`Servidor de control escuchando en https://hackforfun.io:${PORT}`);
 });
 
 server.on('error', (error) => {

@@ -10,7 +10,7 @@
 
     session_start();
     if (!isset($_SESSION['id'])) {
-        header("Location: http://localhost/");
+        header("Location: https://hackforfun.io/");
     }
 
     $userSession = explode(' ', $_SESSION['id']);
@@ -50,7 +50,7 @@
                     Empieza o mejora tu formación en tácticas de Red Team y Blue Team.<br><br>
                     En HackForFun Academy, podrás aprender a través de nuestros learning paht y conseguir certificados profesionales.
                 </p>
-                <a target="_blank" href="academy.php" class="boton">Empieza a aprender</a>
+                <a target="_blank" href="machines/cooming-soon.php" class="boton">Empieza a aprender</a>
             </div>
             <div id="labbox">
                 <h2>HackForFun Labs</h2>

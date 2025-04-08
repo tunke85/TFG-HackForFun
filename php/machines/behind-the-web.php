@@ -14,7 +14,7 @@
 
     session_start();
     if (!isset($_SESSION['id'])) {
-        header("Location: http://localhost/");
+        header("Location: https://hackforfun.io/");
     }
 
     $userSession = explode(' ', $_SESSION['id']);
@@ -123,6 +123,22 @@
                 <a id="logout" href="../logout.php">Cerrar sesión</a>
             </div>
         </header>
+        <div id="menu">
+            <div id="inicio" onclick="window.location.href='../logout.php';">
+                <img src="../../icono/logo.jpeg"/>
+                <h3>HackForFun</h3>
+            </div><br><br>
+            <ul>
+                <li><a href="../panel.php">Panel de control</a></li><br>
+                <li><a href="../labs.php">Máquinas</a><br><br>
+                    <ul>
+                        <li><a href="behind-the-web.php">Behind The Web</a></li><br>
+                        <li><a href="users-leaks.php">Users Leaks</a></li><br>
+                        <li><a href="control.php">Control</a></li><br>
+                    </ul>
+                </li>           
+            </ul>
+        </div>
         <div class="docker">
             <h3>Behind The Web</h3>
             <p>
@@ -158,7 +174,7 @@
                 // Configuración desde PHP
                 const currentMachine = window.serverConfig.machineName;
                 const serverId = window.serverConfig.serverId;
-                const API_BASE_URL = 'http://localhost:3000';
+                const API_BASE_URL = 'https://hackforfun.io:3000';
 
                 // Elementos del DOM
                 const mainBtn = document.getElementById('mainActionBtn');
