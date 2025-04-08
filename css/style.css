@@ -102,14 +102,52 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-top: 0;
-    top: 100%;
-    height: 500px;
+    top: 10%;
+    height: 400px;
     width: 100%;
 }
 
 footer div {
     flex: 1;
     padding: 10px;
+}
+
+#menu-footer {
+    margin-top: 1.5%;
+    font-size: small;
+}
+
+#menu-footer a {
+    text-decoration: none;
+    color: #7687A1;
+}
+
+#menu-footer a:hover {
+    text-decoration: underline;
+}
+
+#info-footer {
+    margin-top: 1.5%;
+}
+
+#info-footer a {
+    text-decoration: none;
+    color: #7687A1;
+}
+
+#info-footer a:hover {
+    text-decoration: underline;
+}
+
+#info-footer  h3 {
+    font-size: small;
+    color: #7687A1;
+}
+
+#info-footer h4 {
+    margin-left: 20px;
+    font-size: x-small;
+    color: #7687A1;
 }
 
 #logo {

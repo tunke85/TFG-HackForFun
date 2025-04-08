@@ -61,19 +61,5 @@
                 <a target="_blank" href="labs.php" class="boton">Empieza a aprender</a>
             </div>
         </div>
-        <footer>
-            <div>
-                <div id="logo" onclick="window.location.href='logout.php';">
-                    <img src="../icono/logo.jpeg"/>
-                    <h3>HackForFun</h3>
-                </div>
-            </div>
-            <div>
-                <h3>Aprendizaje</h3>
-            </div>
-            <div>
-                <p></p>
-            </div>
-        </footer>
     </body>
 </html>

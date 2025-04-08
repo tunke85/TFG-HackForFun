@@ -4,8 +4,20 @@ const axios = require('axios');
 const cors = require('cors');
 const { exec } = require('child_process');
 
+const https = require('https');
+const fs = require('fs');
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/www.hackforfun.io/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/www.hackforfun.io/fullchain.pem'),
+  minVersion: 'TLSv1.2', // Fuerza TLS 1.2
+  secureOptions: require('constants').SSL_OP_NO_SSLv3 | require('constants').SSL_OP_NO_TLSv1 | require('constants').SSL_OP_NO_TLSv1_1,
+  ciphers: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384'
+}; 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.set('trust proxy', 1);
 
 // Configuración
 app.use(cors());
@@ -31,7 +43,7 @@ if (!process.env.CLOUDING_API_KEY) {
 // Función para verificar accesibilidad con ping (con timeout)
 async function checkServerAccessibility(ip) {
   return new Promise((resolve) => {
-    const pingProcess = exec(`ping -c 3 ${ip}`, { timeout: 5000 }, (error) => {
+    const pingProcess = exec(`ping -n 3 ${ip}`, { timeout: 5000 }, (error) => {
       resolve(!error);
     });
     
@@ -127,8 +139,16 @@ app.post('/server-action', async (req, res) => {
 });
 
 // Iniciar servidor
-const server = app.listen(PORT, () => {
-  console.log(`Servidor de control escuchando en https://hackforfun.io:${PORT}`);
+const server = https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor HTTPS escuchando en http# Cabeceras CORS para preflight
+    	Header always set Access-Control-Allow-Origin "https://hackforfun.io"
+    	Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    	Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+    	Header always set Access-Control-Allow-Credentials "true"
+
+	RewriteEngine On
+   	RewriteCond %{REQUEST_METHOD} OPTIONS
+    	RewriteRule ^(.*)$ $1 [R=200,L]://localhost:${PORT}`);
 });
 
 server.on('error', (error) => {

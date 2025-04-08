@@ -123,38 +123,3 @@ header {
     color: #000000;
     text-decoration: none;
 }
-
-footer {
-    position: absolute;
-    background-color: #182232;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0;
-    top: 80%;
-    height: 500px;
-    width: 100%;
-}
-
-footer div {
-    flex: 1;
-    padding: 10px;
-}
-
-#logo {
-    width: fit-content;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 10%;
-    display: flex;
-    color: #FFFFFF;
-    font-size: x-large;
-}
-
-#logo img {
-    width: 8%;
-    height: auto;
-}
-
-#logo h3 {
-    margin: 1% 0% 0% 2% ;
-}
