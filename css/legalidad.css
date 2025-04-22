@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    height: 500px;
+    height: 300px;
     width: 100%;
     color: #7687A1;
     background-color: #121C2B;
@@ -97,9 +97,9 @@ nav {
 }
 
 .docker {
-    width: 65%;
+    width: 50%;
     padding: 1% 2% 1% 2%;
-    margin-left: 16%;
+    margin-left: 23%;
     margin-top: 3%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
@@ -111,35 +111,6 @@ nav {
 }
 
 .docker b {
-    color: #FFFFFF;
-}
-
-center {
-    margin: 5% 10% 10% 10%;
-}
-
-center h2 {
-    color: #FFFFFF;
-}
-
-.dockers {
-    float: left;
-    padding: 1% 2% 1% 2%;
-    margin-left: 2%;
-    margin-top: 3%;
-    margin-bottom: 2%;
-    height: 200px;
-    width: 23.5%;
-    border: 1px solid #FFFFFF;
-    border-radius: 15px;
-    background-color: #182232;
-}
-
-.dockers h3 {
-    color: #FFFFFF;
-}
-
-.dockers b {
     color: #FFFFFF;
 }
 

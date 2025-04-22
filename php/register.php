@@ -88,19 +88,5 @@
         <input type="password" name="passwordcheck" id="passwordcheck"><br><br>
         <input class="boton" type="submit" value="Registrarse"> 
     </form>
-    <footer>
-        <div>
-            <div id="logo" onclick="window.location.href='../index.html';">
-                <img src="../icono/logo.jpeg"/>
-                <h3>HackForFun</h3>
-            </div>
-        </div>
-        <div>
-            <h3>Aprendizaje</h3>
-        </div>
-        <div>
-            <p></p>
-        </div>
-    </footer>
 </body>
 </html>
