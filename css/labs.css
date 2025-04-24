@@ -1,8 +1,8 @@
 body {
-    color: #7687A1;
+    color: #FCF7FF;
     width: 100%;
     margin: 0;
-    background-color: #121C2B;
+    background-color: #001B2E;
 }
 
 header {
@@ -12,7 +12,7 @@ header {
     padding-bottom: 20px;
     display: flex;
     width: 100%;
-    background-color: #182232;
+    background-color: #00121f;
 }
 
 #inicio {
@@ -26,12 +26,8 @@ header {
 }
 
 #inicio img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#inicio h3 {
-    margin: 0.5% 0% 0% 1% ;
 }
 
 #panel {
@@ -42,36 +38,36 @@ header {
 
 #logout {
     margin-left: 10px;
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
 }
 
 #logout:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
 
 h4 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 .top .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
@@ -81,11 +77,11 @@ h4 {
 }
 
 .bot .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
@@ -94,11 +90,11 @@ h4 {
 }
 
 .boton:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
@@ -118,14 +114,14 @@ h4 {
 }
 
 .top {
-    background-color: #182232;
+    background-color: #00121f;
     width: 30%;
     padding: 0 0 30px 20px;
     margin-right: 20px;
 }
 
 .bot {
-    background-color: #182232;
+    background-color: #00121f;
     width: 30%;
     padding: 0 0 30px 20px;
     margin-right: 20px;

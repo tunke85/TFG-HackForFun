@@ -2,15 +2,15 @@ body {
     margin: 0;
     height: 950px;
     width: 100%;
-    color: #7687A1;
-    background-color: #121C2B;
+    color: #FCF7FF;
+    background-color: #001B2E;
 }
 
 nav {
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #182232;
+    background-color: #00121F;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,18 +23,14 @@ nav {
     width: 25%;
     display: flex;
     float: left;
-    background-color: #182232;
+    background-color: #00121F;
     color: #FFFFFF;
     font-size: x-large;
 }
 
 #inicio img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#inicio h3 {
-    margin: 0.5% 0% 0% 1% ;
 }
 
 #nav {
@@ -48,7 +44,7 @@ nav {
 #nav a {
     margin-right: 8%;
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #nav a:hover {
@@ -56,23 +52,23 @@ nav {
 }
 
 .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
 }
 
 .boton:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
@@ -87,7 +83,7 @@ nav {
 
 #empresas {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
     margin-right: 5%;
 }
 
@@ -97,7 +93,7 @@ nav {
 
 #h4f {
     float: left;
-    background: linear-gradient(to bottom left, #182232 55%, #3D5C1F);
+    background: linear-gradient(to bottom left, #00121F 55%, #3D5C1F);
     width: 25%;
     height: 400px;
     padding: 30px;
@@ -106,7 +102,7 @@ nav {
 
 #h4fpro {
     float: left;
-    background: linear-gradient(to bottom left, #182232 55%, #551552);
+    background: linear-gradient(to bottom left, #00121F 55%, #551552);
     width: 25%;
     height: 400px;
     padding: 30px;
@@ -118,11 +114,11 @@ h2 {
 }
 
 .boton-sale {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
@@ -131,18 +127,18 @@ h2 {
 }
 
 .boton-sale:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
 
 footer {
     position: relative;
-    background-color: #182232;
+    background-color: #00121F;
     display: flex;
     justify-content: space-between;
     margin-top: 0;
@@ -163,7 +159,7 @@ footer div {
 
 #menu-footer a {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #menu-footer a:hover {
@@ -176,7 +172,7 @@ footer div {
 
 #info-footer a {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #info-footer a:hover {
@@ -185,13 +181,13 @@ footer div {
 
 #info-footer  h3 {
     font-size: small;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #info-footer h4 {
     margin-left: 20px;
     font-size: x-small;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #logo {
@@ -205,10 +201,6 @@ footer div {
 }
 
 #logo img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#logo h3 {
-    margin: 1% 0% 0% 2% ;
 }

@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/cooming-soon.css">
+        <link rel="icon" href="../../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>
     <body>
         <nav>
             <div id="inicio" onclick="window.location.href='../index.html';">
-                <img src="../../icono/logo.jpeg"/>
+                <img src="../../icono/logo_hack4fun_bluewhite.png"/>
                 <h3>HackForFun</h3>
             </div>
             <div id="nav">
@@ -35,7 +36,7 @@
         <footer>
             <div>
                 <div id="logo" onclick="window.location.href='../index.html';">
-                    <img src="../../icono/logo.jpeg"/>
+                    <img src="../../icono/logo_hack4fun_bluewhite.png"/>
                     <h3>HackForFun</h3>
                 </div>
             </div>

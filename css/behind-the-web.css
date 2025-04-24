@@ -1,8 +1,8 @@
 body {
-    color: #7687A1;
+    color: #FCF7FF;
     width: 100%;
     margin: 0;
-    background-color: #121C2B;
+    background-color: #001B2E;
 }
 
 header {
@@ -11,7 +11,7 @@ header {
     padding-bottom: 20px;
     display: flex;
     width: 100%;
-    background-color: #182232;
+    background-color: #00121f;
 }
 
 #inicio {
@@ -25,12 +25,8 @@ header {
 }
 
 #inicio img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#inicio h3 {
-    margin: 0.5% 0% 0% 1% ;
 }
 
 #panel {
@@ -41,28 +37,28 @@ header {
 
 #logout {
     margin-left: 10px;
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
 }
 
 #logout:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
 
 h4 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 #menu {
@@ -76,16 +72,19 @@ h4 {
     width: 11.5%;
 }
 
+#menu img {
+    width: 150px;
+    height: auto;
+}
+
 #menu a {
     text-decoration: none;
-    color: #7687A1;
+    color: #FCF7FF;
 }
 
 #menu a:hover {
     text-decoration: underline;
 }
-
-
 
 .docker {
     width: 50%;
@@ -94,16 +93,16 @@ h4 {
     margin-top: 3%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
-    background-color: #182232;
+    background-color: #00121f;
     float: left;
 }
 
 .docker h3 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 .docker a {
-    color: #7687A1;    
+    color: #FCF7FF;    
 }
 
 .btn {
@@ -117,7 +116,7 @@ h4 {
     transition: all 0.3s;
 }
 .btn-primary {
-    background: #9FEF00;
+    background: #00A7E1;
     color: black;
 }
 .btn-warning {
@@ -142,22 +141,22 @@ h4 {
 }
 
 .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
 }
 
 .boton:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
@@ -169,7 +168,7 @@ h4 {
     margin-top: 3%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
-    background-color: #182232;
+    background-color: #00121f;
     float: left;
 }
 
@@ -188,22 +187,22 @@ form input {
 }
 
 form .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: small;
 }
 
 form .boton:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }

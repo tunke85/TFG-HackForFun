@@ -26,13 +26,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/panel.css">
-        <link rel="icon" href="../icono/logo.ico" type="image/x-icon">
+        <link rel="icon" href="../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>
     <body>
         <header>
             <div id="inicio" onclick="window.location.href='logout.php';">
-                <img src="../icono/logo.jpeg"/>
-                <h3>HackForFun</h3>
+                <img src="../icono/logo_hack4fun_bluewhite.png"/>
             </div>
             <div id="panel" style="text-align: right;">
                 <span>Bienvenido, <?php echo "$user"; ?></span>

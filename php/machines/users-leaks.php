@@ -110,13 +110,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/behind-the-web.css">
-        <link rel="icon" href="../../icono/logo.ico" type="image/x-icon">
+        <link rel="icon" href="../../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>
     <body>
         <header>
             <div id="inicio" onclick="window.location.href='../logout.php';">
-                <img src="../../icono/logo.jpeg"/>
-                <h3>HackForFun</h3>
+                <img src="../../icono/logo_hack4fun_bluewhite.png"/>
             </div>
             <div id="panel" style="text-align: right;">
                 <span>Bienvenido, <?php echo htmlspecialchars($user); ?></span>
@@ -125,8 +124,7 @@
         </header>
         <div id="menu">
             <div id="inicio" onclick="window.location.href='../logout.php';">
-                <img src="../../icono/logo.jpeg"/>
-                <h3>HackForFun</h3>
+                <img src="../../icono/logo_hack4fun_bluewhite.png"/>
             </div><br><br>
             <ul>
                 <li><a href="../panel.php">Panel de control</a></li><br>
@@ -159,7 +157,7 @@
                 </button>
             </div>
 
-            <div id="serverStatus" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+            <div id="serverStatus" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 4px; color: grey;">
                 Estado: Verificando...
             </div>
             <script>

@@ -2,15 +2,15 @@ body {
     margin: 0;
     height: 500px;
     width: 100%;
-    color: #7687A1;
-    background-color: #121C2B;
+    color: #FCF7FF;
+    background-color: #001B2E;
 }
 
 nav {
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #182232;
+    background-color: #00121f;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,18 +24,14 @@ nav {
     width: 25%;
     display: flex;
     float: left;
-    background-color: #182232;
+    background-color: #00121f;
     color: #FFFFFF;
     font-size: x-large;
 }
 
 #inicio img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#inicio h3 {
-    margin: 0.5% 0% 0% 1% ;
 }
 
 #nav {
@@ -49,7 +45,7 @@ nav {
 #nav a {
     margin-right: 8%;
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #nav a:hover {
@@ -66,7 +62,7 @@ nav {
 
 #empresas {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
     margin-right: 5%;
 }
 
@@ -75,23 +71,23 @@ nav {
 }
 
 .boton {
-    border: 2px solid #9FEF00;
+    border: 2px solid #00A7E1;
     width: fit-content;
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
-    background-color: #9FEF00;
+    background-color: #00A7E1;
     color: #000000;
     text-decoration: none;
     font-size: large;
 }
 
 .boton:hover {
-    border: 2px solid #BBFF34;
+    border: 2px solid #018ebd;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    background-color: #BBFF34;
+    background-color: #018ebd;
     color: #000000;
     text-decoration: none;
 }
@@ -103,15 +99,15 @@ nav {
     margin-top: 3%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
-    background-color: #182232;
+    background-color: #00121f;
 }
 
 .docker h3 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 .docker b {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 center {
@@ -119,7 +115,7 @@ center {
 }
 
 center h2 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 .dockers {
@@ -132,20 +128,20 @@ center h2 {
     width: 23.5%;
     border: 1px solid #FFFFFF;
     border-radius: 15px;
-    background-color: #182232;
+    background-color: #00121f;
 }
 
 .dockers h3 {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 .dockers b {
-    color: #FFFFFF;
+    color: #FCF7FF;
 }
 
 footer {
     position: relative;
-    background-color: #182232;
+    background-color: #00121f;
     display: flex;
     justify-content: space-between;
     margin-top: 0;
@@ -166,7 +162,7 @@ footer div {
 
 #menu-footer a {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #menu-footer a:hover {
@@ -179,7 +175,7 @@ footer div {
 
 #info-footer a {
     text-decoration: none;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #info-footer a:hover {
@@ -188,13 +184,13 @@ footer div {
 
 #info-footer  h3 {
     font-size: small;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #info-footer h4 {
     margin-left: 20px;
     font-size: x-small;
-    color: #7687A1;
+    color: #A4969B;
 }
 
 #logo {
@@ -208,10 +204,6 @@ footer div {
 }
 
 #logo img {
-    width: 8%;
+    width: 50%;
     height: auto;
-}
-
-#logo h3 {
-    margin: 1% 0% 0% 2% ;
 }
