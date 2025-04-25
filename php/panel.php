@@ -25,6 +25,9 @@
         <title>Panel de Usuario | <?php echo "$user"; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/panel.css">
         <link rel="icon" href="../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>
@@ -49,7 +52,7 @@
                     Empieza o mejora tu formación en tácticas de Red Team y Blue Team.<br><br>
                     En HackForFun Academy, podrás aprender a través de nuestros learning paht y conseguir certificados profesionales.
                 </p>
-                <a target="_blank" href="machines/cooming-soon.php" class="boton">Empieza a aprender</a>
+                <a target="_blank" href="academy" class="boton">Empieza a aprender</a>
             </div>
             <div id="labbox">
                 <h2>HackForFun Labs</h2>

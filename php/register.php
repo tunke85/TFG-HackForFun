@@ -4,88 +4,75 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    header('Content-Type: application/json'); // Añadir cabecera JSON
+
     require 'conexion.php';
 
-    $error = "";
+    $response = ['success' => false, 'error' => ''];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nombre = trim($_POST['nombre']);;
-        $apellidos = trim($_POST['apellidos']);
-        $username = trim($_POST['username']);
-        $email = trim($_POST['correo']);
-        $password = hash('sha256', trim($_POST['password']));
-        $passwordcheck = hash('sha256', trim($_POST['passwordcheck']));
+        $nombre = trim($_POST['nombre'] ?? '');
+        $apellidos = trim($_POST['apellidos'] ?? '');
+        $username = trim($_POST['username'] ?? '');
+        $email = trim($_POST['correo'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+        $passwordcheck = trim($_POST['passwordcheck'] ?? '');
 
-        if (empty($nombre) || empty($apellidos) || empty($username) ||empty($email) || empty($password) || empty($passwordcheck)) {
-            $error = "Tienes que completar todos los campos.";
-        } # Validando campos vacíos
-        
+        // Validación de campos vacíos
+        if (empty($nombre) || empty($apellidos) || empty($username) || empty($email) || empty($password) || empty($passwordcheck)) {
+            $response['error'] = "Tienes que completar todos los campos.";
+            echo json_encode($response);
+            exit;
+        }
+
+        // Validación de contraseñas
         if ($password !== $passwordcheck) {
-            $error = "Las contraseñas no son las mismas";
+            $response['error'] = "Las contraseñas no coinciden";
+            echo json_encode($response);
+            exit;
         }
 
-        $select = $conexion->execute_query("SELECT * FROM users WHERE '$username' = 'username';");
+        // Hash de contraseñas
+        $hashedPassword = hash('sha256', $password);
 
-        if ($select->num_rows > 0) {
-            $fila = $select->fetch_assoc();
+        try {
+            // Verificar si el usuario o email ya existen (usando consultas preparadas)
+            $stmt = $conexion->prepare("SELECT username, email FROM users WHERE username = ? OR email = ?");
+            $stmt->bind_param("ss", $username, $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            if ($username == $fila['username'] && $email == $fila['email']) {
-                $error = "El nombre de usuario y el correo electrónico ya está en uso";
-
-            } elseif ($email == $fila['email']) {
-                $error = "El correo electrónico ya está en uso";
-
-            } elseif ($username == $fila['username']) {
-                $error = "El nombre de usuario ya está en uso";
+            if ($result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+                
+                if ($username === $user['username'] && $email === $user['email']) {
+                    $response['error'] = "El nombre de usuario y el correo electrónico ya están en uso";
+                } elseif ($email === $user['email']) {
+                    $response['error'] = "El correo electrónico ya está en uso";
+                } elseif ($username === $user['username']) {
+                    $response['error'] = "El nombre de usuario ya está en uso";
+                }
+                
+                echo json_encode($response);
+                exit;
             }
+
+            // Insertar nuevo usuario (usando consultas preparadas)
+            $insert = $conexion->prepare("INSERT INTO users (username, nombre, apellidos, email, password) VALUES (?, ?, ?, ?, ?)");
+            $insert->bind_param("sssss", $username, $nombre, $apellidos, $email, $hashedPassword);
+            
+            if ($insert->execute()) {
+                $response['success'] = true;
+                $response['redirect'] = '../index.html';
+                $response['message'] = "Usuario $username creado correctamente. Redirigiendo...";
+            } else {
+                $response['error'] = "Error al registrar el usuario: " . $conexion->error;
+            }
+        } catch (Exception $e) {
+            $response['error'] = "Error en la base de datos: " . $e->getMessage();
         }
-
-        $insert = $conexion->execute_query("INSERT INTO users (username, nombre, apellidos, email, password) 
-                                        VALUES ('$username', '$nombre', '$apellidos', '$email', '$password');");
-        # Ejecución de sentencia
-
-        if (isset($insert)) {
-            echo "<script>alert('Usuario ". $username ." creado correctamente');</script>";
-            echo "<script>window.location.href = 'login.php';</script>";
-        } 
     }
+
+    echo json_encode($response);
+    exit;
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HackForFun | Sign In</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/register.css">
-    <link rel="icon" href="../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
-</head>
-<body>
-    <header>
-        <div id="inicio" onclick="window.location.href='../index.html';">
-            <img src="../icono/logo_hack4fun_bluewhite.png"/>
-        </div>
-    </header>
-    <form action="" method="post">
-        <h3 style="text-align: center; color: #FFFFFF;">Registro</h3>
-        <hr>
-        <?php if (!empty($error)): ?>
-            <div style="color: red;"><?php echo $error; ?></div> 
-        <?php endif; ?> 
-        <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
-        <br>
-        Nombre: <br>
-        <input type="text" name="nombre" id="nombre"><br><br>
-        Apellidos: <br>
-        <input type="text" name="apellidos" id="apellidos"><br><br>
-        Nombre de usuario: <br>
-        <input type="text" name="username" id="username"><br><br>
-        Email: <br>
-        <input type="text" name="correo" id="correo" value="<?php echo htmlspecialchars($email ?? ''); ?>"><br><br>
-        Contraseña: <br>
-        <input type="password" name="password" id="password"><br><br>
-        Repetir Contraseña: <br>
-        <input type="password" name="passwordcheck" id="passwordcheck"><br><br>
-        <input class="boton" type="submit" value="Registrarse"> 
-    </form>
-</body>
-</html>

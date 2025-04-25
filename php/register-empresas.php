@@ -1,79 +1,72 @@
 <?php
-    # Habilitar mensajes de error
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+# Habilitar mensajes de error
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    require 'conexion.php';
+header('Content-Type: application/json'); // Añadir cabecera JSON
 
-    $error = "";
+require 'conexion.php';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$response = ['success' => false, 'error' => ''];
 
-        $nombreemp = trim($_POST['nombreemp']);
-        $areaprof = trim($_POST['areaprof']);
-        $dir = trim($_POST['dir']);
-        $email = trim($_POST['email']);
-        $numerotrabj = trim($_POST['numerotrabj']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombreemp = trim($_POST['nombreemp'] ?? '');
+    $areaprof = trim($_POST['areaprof'] ?? '');
+    $dir = trim($_POST['dir'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $numerotrabj = trim($_POST['numerotrabj'] ?? '');
 
-        if (empty($nombreemp) || empty($areaprof) || empty($dir) || empty($email) || empty($numerotrabj)) {
-            $error = "Tienes que completar todos los campos.";
-        }
-
-        $select = $conexion->execute_query("SELECT * FROM empresas WHERE 'nombreemp' = 'nombre';");
-
-        if ($select->num_rows > 0) {
-            $fila = $select->fetch_assoc();
-
-            if ($nombreemp == $fila['nombre']) {
-                $error = "El nombre de la empresa ya está registrado.";
-            }
-        }
-
-        $insert = $conexion->execute_query("INSERT INTO empresas
-                                            (nombre, areaprof, dir, numerotrabj)
-                                            VALUES ('$nombreemp', '$areaprof', '$dir', '$email', '$numerotrabj');");
-
-        if (isset($insert)) {
-            echo "<script>alert('Empresa ". $nombreemp ." registrada correctamente.');</script>";
-            echo "<script>window.location.href = 'empresa.php?nombre=". $nombreemp . "';<script>";
-        }
+    // Validación de campos vacíos
+    if (empty($nombreemp) || empty($areaprof) || empty($dir) || empty($email) || empty($numerotrabj)) {
+        $response['error'] = "Debes completar todos los campos.";
+        echo json_encode($response);
+        exit;
     }
+
+    // Validación de número de trabajadores (debe ser numérico)
+    if (!is_numeric($numerotrabj)) {
+        $response['error'] = "El número de trabajadores debe ser un valor numérico";
+        echo json_encode($response);
+        exit;
+    }
+
+    try {
+        // Verificar si la empresa ya existe (usando consultas preparadas)
+        $stmt = $conexion->prepare("SELECT nombre FROM empresas WHERE nombre = ? OR email = ?");
+        $stmt->bind_param("ss", $nombreemp, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $empresa = $result->fetch_assoc();
+            
+            if ($nombreemp === $empresa['nombre']) {
+                $response['error'] = "El nombre de la empresa ya está registrado";
+            } else {
+                $response['error'] = "El correo electrónico ya está registrado";
+            }
+            
+            echo json_encode($response);
+            exit;
+        }
+
+        // Insertar nueva empresa (usando consultas preparadas)
+        $insert = $conexion->prepare("INSERT INTO empresas (nombre, areaprof, dir, email, numerotrabj) VALUES (?, ?, ?, ?, ?)");
+        $insert->bind_param("ssssi", $nombreemp, $areaprof, $dir, $email, $numerotrabj);
+        
+        if ($insert->execute()) {
+            $response['success'] = true;
+            $response['message'] = "Empresa $nombreemp registrada correctamente";
+            $response['redirect'] = '../empresa.php?nombre=' . urlencode($nombreemp);
+        } else {
+            $response['error'] = "Error al registrar la empresa: " . $conexion->error;
+        }
+    } catch (Exception $e) {
+        $response['error'] = "Error en la base de datos: " . $e->getMessage();
+    }
+}
+
+echo json_encode($response);
+exit;
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>HackForFun | Empresas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/register-empresas.css">
-        <link rel="icon" href="../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
-    </head>
-    <body>
-        <header>
-            <div id="inicio" onclick="window.location.href='../index.html';">
-                <img src="../icono/logo_hack4fun_bluewhite.png"/>
-            </div>
-        </header>
-        <form action="" method="post">
-            <h3 style="text-align: center; color: #FFFFFF;">Registro Empresas</h3>
-            <hr>
-            <?php if (!empty($error)): ?>
-                <div style="color: red;"><?php echo $error; ?></div> 
-            <?php endif; ?> 
-            <!-- Permite que se muestren los mensajes de error definidos en los condicionales -->
-            <br>
-            Nombre de la Empresa: <br>
-            <input type="text" name="nombreemp" id="nombreemp"><br><br>
-            Area profesional: <br>
-            <input type="text" name="areaprof" id="areaprof"><br><br>
-            Dirección: <br>
-            <input type="text" name="dir" id="dir"><br><br>
-            Email: <br>
-            <input type="text" name="correo" id="correo" value="<?php echo htmlspecialchars($email ?? ''); ?>"><br><br>
-            Numero de trabajadores: <br>
-            <input type="text" name="numerotrabj" id="numerotrabj"><br><br>
-            <input class="boton" type="submit" value="Registrarse"> 
-        </form>
-    </body>
-</html>

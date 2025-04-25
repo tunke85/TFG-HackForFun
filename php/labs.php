@@ -26,6 +26,9 @@
         <title>Laboratorio | <?php echo "$user"; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/labs.css">
         <link rel="icon" href="../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>

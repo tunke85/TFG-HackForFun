@@ -4,25 +4,27 @@
         <title>Cooming Soon</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../../css/cooming-soon.css">
         <link rel="icon" href="../../icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
     </head>
     <body>
         <nav>
-            <div id="inicio" onclick="window.location.href='../index.html';">
+            <div id="inicio" onclick="window.location.href='../../index.html';">
                 <img src="../../icono/logo_hack4fun_bluewhite.png"/>
-                <h3>HackForFun</h3>
             </div>
             <div id="nav">
-                <a href="aprendizaje.html">Aprendizaje</a>
-                <a href="servicios.html">Servicios</a>
-                <a href="precios.html">Precios</a>
-                <a href="contacto.html">Contacto</a>
+                <a href="../../html/aprendizaje.html">Aprendizaje</a>
+                <a href="../../html/servicios.html">Servicios</a>
+                <a href="../../html/precios.html">Precios</a>
+                <a href="../../html/contacto.html">Contacto</a>
             </div>
             <div id="botones">
-                <a id="empresas" href="../php/register-empresas.php">Empresas</a>
-                <a class="boton" href="../php/register.php">Registrarse</a>
-                <a class="boton" href="../php/login.php">Iniciar sesión</a>
+                <a id="empresas" href="../../php/register-empresas.php">Empresas</a>
+                <a class="boton" href="../../php/register.php">Registrarse</a>
+                <a class="boton" href="../../php/login.php">Iniciar sesión</a>
             </div>
         </nav>
         <div id="docker">
@@ -33,11 +35,69 @@
                 Cualquier apoyo o contribución puedes escribir a <a href="mailto:alejandro.blanco.cebollero@gmail.com">alejandro.blanco.cebollero@gmail.com</a>.<br><br>
             </p>
         </div>
+        <div id="login-popup" class="popup-backdrop">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeLoginPopup()">&times;</span>
+                <h2>Iniciar sesión</h2>
+                <form id="login-form" method="post" action="../../php/login.php">
+                    <div id="error-message" style="color: red; display: none;"></div>
+                    <label for="correo">Email o nombre de usuario:</label><br>
+                    <input type="text" name="correo" id="popup-correo" required><br><br>
+                    <label for="password">Contraseña:</label><br>
+                    <input type="password" name="password" id="popup-password" required><br><br>
+                    <input class="boton" type="submit" value="Iniciar sesión">
+                    <input class="boton" type="button" onclick="window.location.href='../php/register.php';" value="Registrarse">
+                </form>
+            </div>
+        </div>
+        <div id="empresas-popup" class="popup-backdrop">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeEmpresasPopup()">&times;</span>
+                <h2>Registro para Empresas</h2>
+                <form id="empresas-form" method="post" action="../../php/register-empresas.php">
+                    <div id="empresas-error-message" style="color: red; display: none;"></div>
+                    <label for="nombreemp">Nombre de la Empresa:</label><br>
+                    <input type="text" name="nombreemp" id="nombreemp" required><br><br>
+                    <label for="areaprof">Área profesional:</label><br>
+                    <input type="text" name="areaprof" id="areaprof" required><br><br>
+                    <label for="dir">Dirección:</label><br>
+                    <input type="text" name="dir" id="dir" required><br><br>
+                    <label for="correo">Email:</label><br>
+                    <input type="email" name="correo" id="correo" required><br><br>
+                    <label for="numerotrabj">Número de trabajadores:</label><br>
+                    <input type="text" name="numerotrabj" id="numerotrabj" required><br><br>
+                    <input class="boton" type="submit" value="Registrarse">
+                    <input class="boton" type="button" onclick="closeEmpresasPopup()" value="Cancelar">
+                </form>
+            </div>
+        </div>
+        <div id="register-popup" class="popup-backdrop">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeRegisterPopup()">&times;</span>
+                <h2>Registro de usuario</h2>
+                <form id="register-form" method="post" action="../../php/register.php">
+                    <div id="register-error-message" style="color: red; display: none;"></div>
+                    <label for="nombre">Nombre:</label><br>
+                    <input type="text" name="nombre" id="nombre" required><br><br>
+                    <label for="apellidos">Apellidos:</label><br>
+                    <input type="text" name="apellidos" id="apellidos" required><br><br>
+                    <label for="username">Nombre de usuario:</label><br>
+                    <input type="text" name="username" id="username" required><br><br>
+                    <label for="correo">Email:</label><br>
+                    <input type="email" name="correo" id="correo" required><br><br>
+                    <label for="password">Contraseña:</label><br>
+                    <input type="password" name="password" id="password" required><br><br>
+                    <label for="passwordcheck">Repetir Contraseña:</label><br>
+                    <input type="password" name="passwordcheck" id="passwordcheck" required><br><br>
+                    <input class="boton" type="submit" value="Registrarse">
+                    <input class="boton" type="button" onclick="closeRegisterPopup()" value="Cancelar">
+                </form>
+            </div>
+        </div>
         <footer>
             <div>
-                <div id="logo" onclick="window.location.href='../index.html';">
+                <div id="logo" onclick="window.location.href='../../index.html';">
                     <img src="../../icono/logo_hack4fun_bluewhite.png"/>
-                    <h3>HackForFun</h3>
                 </div>
             </div>
             <div id="menu-footer">
@@ -56,5 +116,132 @@
                 <h4>IES Calderón de la Barca, Pinto</h4>
             </div>
         </footer>
+        <script>
+            // Función genérica para abrir popups
+            function openPopup(e, popupId) {
+                e.preventDefault();
+                document.getElementById(popupId).style.display = 'block';
+                document.body.classList.add('popup-open');
+            }
+        
+            // Funciones específicas para cada popup
+            function openLoginPopup(e) { openPopup(e, 'login-popup'); }
+            function openEmpresasPopup(e) { openPopup(e, 'empresas-popup'); }
+            function openRegisterPopup(e) { openPopup(e, 'register-popup'); }
+        
+            // Función genérica para cerrar popups
+            function closePopup(popupId) {
+                document.getElementById(popupId).style.display = 'none';
+                document.body.classList.remove('popup-open');
+            }
+        
+            // Funciones específicas para cada popup
+            function closeLoginPopup() { closePopup('login-popup'); }
+            function closeEmpresasPopup() { closePopup('empresas-popup'); }
+            function closeRegisterPopup() { closePopup('register-popup'); }
+        
+            // Asignar eventos al cargar la página
+            document.addEventListener('DOMContentLoaded', function() {
+                // Botón de login
+                document.querySelector('a.boton[href="../../php/login.php"]')?.addEventListener('click', openLoginPopup);
+                
+                // Enlace de Empresas
+                document.querySelector('a#empresas[href="../../php/register-empresas.php"]')?.addEventListener('click', openEmpresasPopup);
+                
+                // Botón de Registro
+                document.querySelector('a.boton[href="../../php/register.php"]')?.addEventListener('click', openRegisterPopup);
+        
+                // Cerrar al hacer clic fuera del contenido (para los 3 popups)
+                document.getElementById('login-popup')?.addEventListener('click', function(e) {
+                    if (e.target === this) closeLoginPopup();
+                });
+        
+                document.getElementById('empresas-popup')?.addEventListener('click', function(e) {
+                    if (e.target === this) closeEmpresasPopup();
+                });
+        
+                document.getElementById('register-popup')?.addEventListener('click', function(e) {
+                    if (e.target === this) closeRegisterPopup();
+                });
+        
+                // Manejar envío de formularios con AJAX (similar para los 3)
+                document.getElementById('login-form')?.addEventListener('submit', handleFormSubmit);
+                document.getElementById('empresas-form')?.addEventListener('submit', handleFormSubmit);
+                document.getElementById('register-form')?.addEventListener('submit', handleFormSubmit);
+            });
+        
+                // Función específica para manejar login
+                function handleLoginSubmit(e) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const errorElement = form.querySelector('[id$="-error-message"]');
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirigir sin mostrar alert
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }
+                        } else {
+                            errorElement.textContent = data.error || 'Error desconocido';
+                            errorElement.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        errorElement.textContent = 'Error al procesar la solicitud';
+                        errorElement.style.display = 'block';
+                    });
+                }
+
+                // Función genérica para manejar registros (empresas y usuarios)
+                function handleRegisterSubmit(e) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const errorElement = form.querySelector('[id$="-error-message"]');
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Mostrar mensaje de éxito solo para registros
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                            
+                            // Redirigir después de mostrar el alert
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }
+                        } else {
+                            errorElement.textContent = data.error || 'Error desconocido';
+                            errorElement.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        errorElement.textContent = 'Error al procesar la solicitud';
+                        errorElement.style.display = 'block';
+                    });
+                }
+
+                // Asignar eventos al cargar la página
+                document.addEventListener('DOMContentLoaded', function() {
+                    // [Los event listeners para abrir popups se mantienen igual...]
+                    
+                    // Asignar manejadores específicos para cada formulario
+                    document.getElementById('login-form')?.addEventListener('submit', handleLoginSubmit);
+                    document.getElementById('empresas-form')?.addEventListener('submit', handleRegisterSubmit);
+                    document.getElementById('register-form')?.addEventListener('submit', handleRegisterSubmit);
+                });
+        </script>
     </body>
 </html>
