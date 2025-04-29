@@ -38,7 +38,7 @@
             </div>
             <div id="panel" style="text-align: right;">
                 <span>Bienvenido, <?php echo "$user"; ?></span>
-                <a id="logout" href="logout.php">Cerrar sesión</a>
+                <a id="logout" href="../../logout.php">Cerrar sesión</a>
             </div>
         </header>
         <div id="menu">
@@ -49,9 +49,9 @@
                 <li><a href="../panel.php">Panel de control</a></li><br>
                 <li><a href="">Academia</a><br><br>
                     <ul>
-                        <li><a href="entorno.php">Entorno de Trabajo</a></li><br>
-                        <li><a href="conceptos.php">Conceptos Básicos</a></li><br>
-                        <li><a href="herramientas.php">Herramientas usadas</a></li><br>
+                        <li><a href="introduccion/entorno de trabajo">Entorno de Trabajo</a></li><br>
+                        <li><a href="introduccion/conceptos basicos/">Conceptos Básicos</a></li><br>
+                        <li><a href="introduccion/herramientas usadas/">Herramientas usadas</a></li><br>
                     </ul>
                 </li>           
             </ul>
@@ -70,9 +70,9 @@
                     </div>
                     <div class="desplegable-contenido">
                         <ul>
-                            <li><a href="entorno.php">Entorno de Trabajo</a></li><br>
-                            <li><a href="conceptos.php">Conceptos Básicos</a></li><br>
-                            <li><a href="herramientas.php">Herramientas usadas</a></li>
+                            <li><a href="introduccion/entorno de trabajo">Entorno de Trabajo</a></li><br>
+                            <li><a href="introduccion/conceptos basicos/">Conceptos Básicos</a></li><br>
+                            <li><a href="introduccion/herramientas usadas/">Herramientas usadas</a></li>
                         </ul>
                     </div>
                 </div>
