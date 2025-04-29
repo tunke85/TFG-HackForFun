@@ -13,7 +13,7 @@
     <body>
         <nav>
             <div id="inicio" onclick="window.location.href='../index.html';">
-                <img src="../icono/logo_hack4fun_bluewhite.png"/>
+                <img src="../icono/logo_hack4fun_bluewhite.png" alt="HackForFun Logo"/>
             </div>
             <div id="nav">
                 <a href="aprendizaje.html">Aprendizaje</a>
@@ -35,27 +35,29 @@
                 Aquí están los pilares de nuestros servicios.
             </p>
         </div>
-        <div class="dockers" style="margin-left: 7%;">
-            <h3>Temario de fundamentos en ciberseguridad</h3>
-            <p>
-                Un apartado especialmente diseñado para aprender sobre los principios fundamentales de la ciberseguridad, abarcando tanto el ámbito ofensivo como defensivo. 
-                Ideal para quienes buscan una base sólida para construir su conocimiento en seguridad informática.
-            </p>
-        </div>
-        <div class="dockers">
-            <h3>Laboratorios prácticos</h3>
-            <p>
-                Espacios interactivos donde los alumnos aplican los conocimientos adquiridos a través de ejercicios prácticos. 
-                Estos laboratorios están enfocados en simular situaciones reales para perfeccionar habilidades tanto en ataque como en defensa, proporcionando soluciones efectivas para cada escenario.
-            </p>
-        </div>
-        <div class="dockers">
-            <h3>Formación empresarial personalizada</h3>
-            <p>
-                Un programa exclusivo para empresas que combina los apartados teórico y práctico, y que se centra en reforzar áreas específicas de ciberseguridad según las necesidades de cada organización. 
-                Este curso está orientado a técnicos informáticos y está diseñado para enseñar estrategias para prevenir ataques cibernéticos y proteger infraestructuras críticas. 
-                Desde formación básica y general hasta un enfoque más avanzado en áreas clave, adaptamos nuestra enseñanza para maximizar el impacto en la seguridad informática empresarial.
-            </p>
+        <div class="features-container">
+            <div class="dockers">
+                <h3>Temario de fundamentos en ciberseguridad</h3>
+                <p>
+                    Un apartado especialmente diseñado para aprender sobre los principios fundamentales de la ciberseguridad, abarcando tanto el ámbito ofensivo como defensivo. 
+                    Ideal para quienes buscan una base sólida para construir su conocimiento en seguridad informática.
+                </p>
+            </div>
+            <div class="dockers">
+                <h3>Laboratorios prácticos</h3>
+                <p>
+                    Espacios interactivos donde los alumnos aplican los conocimientos adquiridos a través de ejercicios prácticos. 
+                    Estos laboratorios están enfocados en simular situaciones reales para perfeccionar habilidades tanto en ataque como en defensa, proporcionando soluciones efectivas para cada escenario.
+                </p>
+            </div>
+            <div class="dockers">
+                <h3>Formación empresarial personalizada</h3>
+                <p>
+                    Un programa exclusivo para empresas que combina los apartados teórico y práctico, y que se centra en reforzar áreas específicas de ciberseguridad según las necesidades de cada organización. 
+                    Este curso está orientado a técnicos informáticos y está diseñado para enseñar estrategias para prevenir ataques cibernéticos y proteger infraestructuras críticas. 
+                    Desde formación básica y general hasta un enfoque más avanzado en áreas clave, adaptamos nuestra enseñanza para maximizar el impacto en la seguridad informática empresarial.
+                </p>
+            </div>
         </div>
         <div id="login-popup" class="popup-backdrop">
             <div class="popup-content">
@@ -119,7 +121,7 @@
         <footer>
             <div>
                 <div id="logo" onclick="window.location.href='../index.html';">
-                    <img src="../icono/logo_hack4fun_bluewhite.png"/>
+                    <img src="../icono/logo_hack4fun_bluewhite.png" alt="HackForFun Logo"/>
                 </div>
             </div>
             <div id="menu-footer">
@@ -127,7 +129,6 @@
                 <h3><a href="servicios.html">Servicios</a></h3><br>
                 <h3><a href="precios.html">Precios</a></h3><br>
                 <h3><a href="contacto.html">Contacto</a></h3><br>
-                <h3><a href="../php/register-empresas.php">Empresas</a></h3><br>
             </div>
             <div id="info-footer">
                 <h3 style="text-transform: uppercase;"><a href="../legalidad/PrivacidadYDatos.html">Política de Privacidad y Datos</a></h3><br>
@@ -186,84 +187,71 @@
                     if (e.target === this) closeRegisterPopup();
                 });
         
-                // Manejar envío de formularios con AJAX (similar para los 3)
-                document.getElementById('login-form')?.addEventListener('submit', handleFormSubmit);
-                document.getElementById('empresas-form')?.addEventListener('submit', handleFormSubmit);
-                document.getElementById('register-form')?.addEventListener('submit', handleFormSubmit);
+                // Manejar envío de formularios con AJAX
+                document.getElementById('login-form')?.addEventListener('submit', handleLoginSubmit);
+                document.getElementById('empresas-form')?.addEventListener('submit', handleRegisterSubmit);
+                document.getElementById('register-form')?.addEventListener('submit', handleRegisterSubmit);
             });
         
-                // Función específica para manejar login
-                function handleLoginSubmit(e) {
-                    e.preventDefault();
-                    const form = e.target;
-                    const errorElement = form.querySelector('[id$="-error-message"]');
-                    
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Redirigir sin mostrar alert
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            }
-                        } else {
-                            errorElement.textContent = data.error || 'Error desconocido';
-                            errorElement.style.display = 'block';
+            // Función específica para manejar login
+            function handleLoginSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const errorElement = form.querySelector('#error-message');
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        errorElement.textContent = 'Error al procesar la solicitud';
+                    } else {
+                        errorElement.textContent = data.error || 'Error desconocido';
                         errorElement.style.display = 'block';
-                    });
-                }
-
-                // Función genérica para manejar registros (empresas y usuarios)
-                function handleRegisterSubmit(e) {
-                    e.preventDefault();
-                    const form = e.target;
-                    const errorElement = form.querySelector('[id$="-error-message"]');
-                    
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Mostrar mensaje de éxito solo para registros
-                            if (data.message) {
-                                alert(data.message);
-                            }
-                            
-                            // Redirigir después de mostrar el alert
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            }
-                        } else {
-                            errorElement.textContent = data.error || 'Error desconocido';
-                            errorElement.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        errorElement.textContent = 'Error al procesar la solicitud';
-                        errorElement.style.display = 'block';
-                    });
-                }
-
-                // Asignar eventos al cargar la página
-                document.addEventListener('DOMContentLoaded', function() {
-                    // [Los event listeners para abrir popups se mantienen igual...]
-                    
-                    // Asignar manejadores específicos para cada formulario
-                    document.getElementById('login-form')?.addEventListener('submit', handleLoginSubmit);
-                    document.getElementById('empresas-form')?.addEventListener('submit', handleRegisterSubmit);
-                    document.getElementById('register-form')?.addEventListener('submit', handleRegisterSubmit);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorElement.textContent = 'Error al procesar la solicitud';
+                    errorElement.style.display = 'block';
                 });
+            }
+
+            // Función genérica para manejar registros
+            function handleRegisterSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const errorElement = form.querySelector('[id$="-error-message"]');
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.message) {
+                            alert(data.message);
+                        }
+                        
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    } else {
+                        errorElement.textContent = data.error || 'Error desconocido';
+                        errorElement.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorElement.textContent = 'Error al procesar la solicitud';
+                    errorElement.style.display = 'block';
+                });
+            }
         </script>
     </body>
 </html>

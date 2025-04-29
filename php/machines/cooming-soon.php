@@ -27,7 +27,7 @@
                 <a class="boton" href="../../php/login.php">Iniciar sesión</a>
             </div>
         </nav>
-        <div id="docker">
+        <div class="docker">
             <h2>Comming Soon...</h2>
             <p>
                 Sí te gusta la idea de este proyecto de trabajo de final de grado <br>
@@ -105,7 +105,6 @@
                 <h3><a href="../../html/servicios.html">Servicios</a></h3><br>
                 <h3><a href="../../html/precios.html">Precios</a></h3><br>
                 <h3><a href="../../html/contacto.html">Contacto</a></h3><br>
-                <h3><a href="../register-empresas.php">Empresas</a></h3><br>
             </div>
             <div id="info-footer">
                 <h3><a href="../../legalidad/PrivacidadYDatos.html">Política de Privacidad y Datos</a></h3><br>

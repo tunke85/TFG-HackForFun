@@ -9,12 +9,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" href="icono/logo_hack4fun_H_whiteblue.ico" type="image/x-icon">
-
     </head>
     <body>
         <nav>
             <div id="inicio" onclick="window.location.href='../index.html';">
-                <img src="icono/logo_hack4fun_bluewhite.png"/>
+                <img src="icono/logo_hack4fun_bluewhite.png" alt="HackForFun Logo"/>
             </div>
             <div id="nav">
                 <a href="html/aprendizaje.html">Aprendizaje</a>
@@ -53,23 +52,25 @@
                 Esta cifra no va a hacer más que subir cada año debido a que se emplea mucho más tiempo y dinero en hacking ofensivo que en hacking defensivo.
             </p>
         </div>
-        <div class="dockers" style="margin-left: 7%;">
-            <h3>Temario teórico</h3>
-            <p>
-                Amplio conocimiento de conceptos básicos y complejos de la ciberseguridad abarcando todos los ámbitos.
-            </p>
-        </div>
-        <div class="dockers">
-            <h3>Preparación certificados</h3>
-            <p>
-                Temario práctico y teórico para la preparación de certificados tales como eJPT, eWPT, OSCP...
-            </p>
-        </div>
-        <div class="dockers">
-            <h3>Aprendizaje práctico</h3>
-            <p>
-                Laboratorios prácticos que permiten practicar los conocimientos aprendidos y mejorar el apartado práctico de la ciberseguridad.
-            </p>
+        <div class="features-container">
+            <div class="dockers" style="margin-left: 7%;">
+                <h3>Temario teórico</h3>
+                <p>
+                    Amplio conocimiento de conceptos básicos y complejos de la ciberseguridad abarcando todos los ámbitos.
+                </p>
+            </div>
+            <div class="dockers">
+                <h3>Preparación certificados</h3>
+                <p>
+                    Temario práctico y teórico para la preparación de certificados tales como eJPT, eWPT, OSCP...
+                </p>
+            </div>
+            <div class="dockers">
+                <h3>Aprendizaje práctico</h3>
+                <p>
+                    Laboratorios prácticos que permiten practicar los conocimientos aprendidos y mejorar el apartado práctico de la ciberseguridad.
+                </p>
+            </div>
         </div>
         <div id="login-popup" class="popup-backdrop">
             <div class="popup-content">
@@ -133,7 +134,7 @@
         <footer>
             <div>
                 <div id="logo" onclick="window.location.href='../index.html';">
-                    <img src="../icono/logo_hack4fun_bluewhite.png"/>
+                    <img src="../icono/logo_hack4fun_bluewhite.png" alt="HackForFun Logo"/>
                 </div>
             </div>
             <div id="menu-footer">
@@ -141,7 +142,6 @@
                 <h3><a href="html/servicios.html">Servicios</a></h3><br>
                 <h3><a href="html/precios.html">Precios</a></h3><br>
                 <h3><a href="html/contacto.html">Contacto</a></h3><br>
-                <h3><a href="php/register-empresas.php">Empresas</a></h3><br>
             </div>
             <div id="info-footer">
                 <h3 style="text-transform: uppercase;"><a href="legalidad/PrivacidadYDatos.html">Política de Privacidad y Datos</a></h3><br>
@@ -200,84 +200,88 @@
                     if (e.target === this) closeRegisterPopup();
                 });
         
-                // Manejar envío de formularios con AJAX (similar para los 3)
-                document.getElementById('login-form')?.addEventListener('submit', handleFormSubmit);
-                document.getElementById('empresas-form')?.addEventListener('submit', handleFormSubmit);
-                document.getElementById('register-form')?.addEventListener('submit', handleFormSubmit);
+                // Manejar envío de formularios con AJAX
+                document.getElementById('login-form')?.addEventListener('submit', handleLoginSubmit);
+                document.getElementById('empresas-form')?.addEventListener('submit', handleRegisterSubmit);
+                document.getElementById('register-form')?.addEventListener('submit', handleRegisterSubmit);
+                
+                // Ajustar posición de popups
+                adjustPopupPosition();
             });
-        
-                // Función específica para manejar login
-                function handleLoginSubmit(e) {
-                    e.preventDefault();
-                    const form = e.target;
-                    const errorElement = form.querySelector('[id$="-error-message"]');
-                    
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Redirigir sin mostrar alert
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            }
-                        } else {
-                            errorElement.textContent = data.error || 'Error desconocido';
-                            errorElement.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        errorElement.textContent = 'Error al procesar la solicitud';
-                        errorElement.style.display = 'block';
-                    });
-                }
-
-                // Función genérica para manejar registros (empresas y usuarios)
-                function handleRegisterSubmit(e) {
-                    e.preventDefault();
-                    const form = e.target;
-                    const errorElement = form.querySelector('[id$="-error-message"]');
-                    
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Mostrar mensaje de éxito solo para registros
-                            if (data.message) {
-                                alert(data.message);
-                            }
-                            
-                            // Redirigir después de mostrar el alert
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            }
-                        } else {
-                            errorElement.textContent = data.error || 'Error desconocido';
-                            errorElement.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        errorElement.textContent = 'Error al procesar la solicitud';
-                        errorElement.style.display = 'block';
-                    });
-                }
-
-                // Asignar eventos al cargar la página
-                document.addEventListener('DOMContentLoaded', function() {
-                    // [Los event listeners para abrir popups se mantienen igual...]
-                    
-                    // Asignar manejadores específicos para cada formulario
-                    document.getElementById('login-form')?.addEventListener('submit', handleLoginSubmit);
-                    document.getElementById('empresas-form')?.addEventListener('submit', handleRegisterSubmit);
-                    document.getElementById('register-form')?.addEventListener('submit', handleRegisterSubmit);
+            
+            // Función para ajustar posición de popups
+            function adjustPopupPosition() {
+                const popups = document.querySelectorAll('.popup-content');
+                popups.forEach(popup => {
+                    popup.style.top = '50%';
+                    popup.style.left = '50%';
+                    popup.style.transform = 'translate(-50%, -50%)';
                 });
+            }
+
+            // Llamada inicial y en resize
+            window.addEventListener('load', adjustPopupPosition);
+            window.addEventListener('resize', adjustPopupPosition);
+
+            // Función específica para manejar login
+            function handleLoginSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const errorElement = form.querySelector('#error-message');
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    } else {
+                        errorElement.textContent = data.error || 'Error desconocido';
+                        errorElement.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorElement.textContent = 'Error al procesar la solicitud';
+                    errorElement.style.display = 'block';
+                });
+            }
+
+            // Función genérica para manejar registros
+            function handleRegisterSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const errorElement = form.querySelector('[id$="-error-message"]');
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.message) {
+                            alert(data.message);
+                        }
+                        
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    } else {
+                        errorElement.textContent = data.error || 'Error desconocido';
+                        errorElement.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorElement.textContent = 'Error al procesar la solicitud';
+                    errorElement.style.display = 'block';
+                });
+            }
         </script>
     </body>
 </html>
