@@ -32,13 +32,10 @@
                 $user = $result->fetch_assoc();
                 
                 // Mejorar la sesión almacenando datos útiles
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['logged_in'] = true;
+                $_SESSION['id'] = $user['id'];
 
                 $response['success'] = true;
-                $response['redirect'] = '../../php/panel.php';
+                $response['redirect'] = '/php/panel.php';
             } else {
                 throw new Exception("Usuario o contraseña no válidos");
             }

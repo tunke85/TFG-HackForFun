@@ -13,10 +13,13 @@
         header("Location: https://hackforfun.io/");
     }
 
-    $userSession = explode(' ', $_SESSION['id']);
-    $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email");
-    $userEmail = $select->fetch_assoc();
-    $user= $userEmail['username']
+    $stmt = $conexion->prepare("SELECT username FROM users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $userData = $result->fetch_assoc();
+    $user = $userData['username'];
 
 ?>
 
@@ -53,13 +56,13 @@
                 <h4>Users Leak</h4>
                 <h5 class="easy">Easy</h5>
                 <p></p>
-                <a class="boton" href="machines/users-leaks.php">Hackeame</a>
+                <a class="boton" href="machines/cooming-soon.php">Hackeame</a>
             </div>
             <div class="top">
                 <h4>Control</h4>
                 <h5 class="easy">Easy</h5>
                 <p></p>
-                <a class="boton" href="machines/control.php">Hackeame</a>
+                <a class="boton" href="machines/cooming-soon.php">Hackeame</a>
             </div>
         </div>
         <div id="rest">

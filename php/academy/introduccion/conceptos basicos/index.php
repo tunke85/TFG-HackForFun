@@ -13,10 +13,13 @@
         header("Location: https://hackforfun.io/");
     }
 
-    $userSession = explode(' ', $_SESSION['id']);
-    $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email");
-    $userEmail = $select->fetch_assoc();
-    $user= $userEmail['username']
+    $stmt = $conexion->prepare("SELECT username FROM users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $userData = $result->fetch_assoc();
+    $user = $userData['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +35,7 @@
     </head>
     <body>
         <header>
-            <div id="inicio" onclick="window.location.href='../logout.php';">
+            <div id="inicio" onclick="window.location.href='../../../logout.php';">
                 <img src="../../../../icono/logo_hack4fun_bluewhite.png"/>
             </div>
             <div id="panel" style="text-align: right;">

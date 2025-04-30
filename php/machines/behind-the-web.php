@@ -17,10 +17,13 @@
         header("Location: https://hackforfun.io/");
     }
 
-    $userSession = explode(' ', $_SESSION['id']);
-    $select = $conexion->execute_query("SELECT username FROM users WHERE '$userSession[0]' = username OR '$userSession[0]' = email;");
-    $userEmail = $select->fetch_assoc();
-    $user = $userEmail['username'] ?? '';
+    $stmt = $conexion->prepare("SELECT username FROM users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $userData = $result->fetch_assoc();
+    $user = $userData['username'];
 
     $machineName = $conexion->execute_query("SELECT name FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
     $serverId = $conexion->execute_query("SELECT machineid FROM machines WHERE name = 'behind-the-web'")->fetch_assoc();
@@ -134,8 +137,8 @@
                 <li><a href="../labs.php">Máquinas</a><br><br>
                     <ul>
                         <li><a href="behind-the-web.php">Behind The Web</a></li><br>
-                        <li><a href="users-leaks.php">Users Leaks</a></li><br>
-                        <li><a href="control.php">Control</a></li><br>
+                        <li><a href="cooming-soon.php">Users Leaks</a></li><br>
+                        <li><a href="cooming-soon.php">Control</a></li><br>
                     </ul>
                 </li>           
             </ul>

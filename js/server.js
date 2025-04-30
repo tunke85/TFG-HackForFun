@@ -148,7 +148,7 @@ const server = https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () =>
 
 	RewriteEngine On
    	RewriteCond %{REQUEST_METHOD} OPTIONS
-    	RewriteRule ^(.*)$ $1 [R=200,L]://localhost:${PORT}`);
+    	RewriteRule ^(.*)$ $1 [R=200,L]://hackforfun.io:${PORT}`);
 });
 
 server.on('error', (error) => {
