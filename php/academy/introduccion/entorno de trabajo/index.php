@@ -222,5 +222,10 @@
                 </li>
             </ul>
         </div>
+        <br>
+        <center>
+            <a class="boton" href="../../">Volver</a>
+        </center>
+        <br><br><br>
     </body>
 </html>
