@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($insert->execute()) {
             $response['success'] = true;
             $response['message'] = "Empresa $nombreemp registrada correctamente";
-            $response['redirect'] = '../empresa.php?nombre=' . urlencode($nombreemp);
+            $response['redirect'] = '../php/empresa.php?nombre=' . urlencode($nombreemp);
         } else {
             $response['error'] = "Error al registrar la empresa: " . $conexion->error;
         }
